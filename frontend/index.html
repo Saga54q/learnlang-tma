@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LearnLang - изучение языков</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>LearnLang</h1>
+            <p class="subtitle">Учите языки с удовольствием</p>
+        </header>
+
+        <main>
+            <div class="stats-card">
+                <div class="stat-item">
+                    <span class="stat-value" id="streak">7</span>
+                    <span class="stat-label">Дней подряд</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="words">156</span>
+                    <span class="stat-label">Слов выучено</span>
+                </div>
+            </div>
+
+            <div class="language-selector">
+                <h3>Выберите язык:</h3>
+                <div class="language-grid">
+                    <button class="lang-btn active" data-lang="en">
+                        <span class="flag">🇬🇧</span>
+                        Английский
+                    </button>
+                    <button class="lang-btn" data-lang="es">
+                        <span class="flag">🇪🇸</span>
+                        Испанский
+                    </button>
+                    <button class="lang-btn" data-lang="fr">
+                        <span class="flag">🇫🇷</span>
+                        Французский
+                    </button>
+                    <button class="lang-btn" data-lang="de">
+                        <span class="flag">🇩🇪</span>
+                        Немецкий
+                    </button>
+                    <button class="lang-btn" data-lang="it">
+                        <span class="flag">🇮🇹</span>
+                        Итальянский
+                    </button>
+                    <button class="lang-btn" data-lang="ja">
+                        <span class="flag">🇯🇵</span>
+                        Японский
+                    </button>
+                </div>
+            </div>
+
+            <div class="daily-word">
+                <h3>Слово дня</h3>
+                <div class="word-card">
+                    <p class="word">"Hello"</p>
+                    <p class="translation">Привет</p>
+                    <button class="audio-btn" onclick="playPronunciation()">
+                        🔊 Послушать
+                    </button>
+                </div>
+            </div>
+
+            <div class="exercises">
+                <h3>Ежедневные упражнения</h3>
+                <div class="exercise-list">
+                    <div class="exercise-item">
+                        <div class="exercise-info">
+                            <span class="exercise-title">Перевод слов</span>
+                            <span class="exercise-progress">0/10</span>
+                        </div>
+                        <button class="start-btn" onclick="startExercise('translate')">Начать</button>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-info">
+                            <span class="exercise-title">Аудирование</span>
+                            <span class="exercise-progress">0/5</span>
+                        </div>
+                        <button class="start-btn" onclick="startExercise('listening')">Начать</button>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="exercise-info">
+                            <span class="exercise-title">Грамматика</span>
+                            <span class="exercise-progress">0/8</span>
+                        </div>
+                        <button class="start-btn" onclick="startExercise('grammar')">Начать</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-btn active" onclick="showTab('home')">
+                <span class="nav-icon">🏠</span>
+                <span>Главная</span>
+            </button>
+            <button class="nav-btn" onclick="showTab('learn')">
+                <span class="nav-icon">📚</span>
+                <span>Учить</span>
+            </button>
+            <button class="nav-btn" onclick="showTab('progress')">
+                <span class="nav-icon">📊</span>
+                <span>Прогресс</span>
+            </button>
+            <button class="nav-btn" onclick="showTab('profile')">
+                <span class="nav-icon">👤</span>
+                <span>Профиль</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
