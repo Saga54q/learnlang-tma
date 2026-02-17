@@ -1038,3 +1038,67 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* Исправления для работы кнопок */
+.nav-btn {
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.lang-btn {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.level-btn {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.action-btn, .test-option, .shop-item, .close-btn {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Скрытие/показ секций */
+.levels-section,
+#currentLesson,
+#levelResult,
+#shopSection,
+.daily-word {
+    transition: opacity 0.3s ease;
+}
+
+/* Модальные окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.stats-modal, .profile-modal {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.level-result {
+    animation: fadeIn 0.3s ease;
+}

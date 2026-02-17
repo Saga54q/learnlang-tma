@@ -3,7 +3,7 @@ let tg = window.Telegram.WebApp;
 tg.expand();
 tg.enableClosingConfirmation();
 
-// ==================== КЛАССЫ ИГРЫ ====================
+// ==================== КЛАСС ИГРЫ ====================
 
 class GameManager {
     constructor() {
@@ -24,584 +24,966 @@ class GameManager {
             shield: false
         };
 
+        // Привязываем методы к экземпляру
+        this.initUserData = this.initUserData.bind(this);
+        this.checkStreak = this.checkStreak.bind(this);
+        this.loadLevels = this.loadLevels.bind(this);
+        this.startLevel = this.startLevel.bind(this);
+        this.showCurrentWord = this.showCurrentWord.bind(this);
+        this.showTranslation = this.showTranslation.bind(this);
+        this.nextWord = this.nextWord.bind(this);
+        this.prepareTest = this.prepareTest.bind(this);
+        this.checkTestAnswer = this.checkTestAnswer.bind(this);
+        this.completeLevel = this.completeLevel.bind(this);
+        this.nextLevel = this.nextLevel.bind(this);
+        this.repeatLevel = this.repeatLevel.bind(this);
+        this.addLearnedWord = this.addLearnedWord.bind(this);
+        this.addCoins = this.addCoins.bind(this);
+        this.addXP = this.addXP.bind(this);
+        this.updateUI = this.updateUI.bind(this);
+        this.updateProgressSteps = this.updateProgressSteps.bind(this);
+        this.checkAchievements = this.checkAchievements.bind(this);
+        this.showAchievements = this.showAchievements.bind(this);
+        this.showNotification = this.showNotification.bind(this);
+        this.playWordSound = this.playWordSound.bind(this);
+        this.buyBonus = this.buyBonus.bind(this);
+        this.showSection = this.showSection.bind(this);
+        this.showStats = this.showStats.bind(this);
+        this.showProfile = this.showProfile.bind(this);
+
+        // Инициализация
         this.initUserData();
         this.loadLevels();
         this.updateUI();
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Обработчики для кнопок языка
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.removeEventListener('click', this.handleLanguageClick);
+            this.handleLanguageClick = (e) => {
+                document.querySelectorAll('.lang-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+                this.currentLanguage = btn.dataset.lang;
+                this.loadLevels();
+                tg.HapticFeedback.impactOccurred('soft');
+            };
+            btn.addEventListener('click', this.handleLanguageClick);
+        });
+
+        // Обработчики для навигации
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.removeEventListener('click', this.handleNavClick);
+            this.handleNavClick = (e) => {
+                const section = btn.textContent.trim().toLowerCase();
+                this.showSection(section);
+            };
+            btn.addEventListener('click', this.handleNavClick);
+        });
     }
 
     initUserData() {
-        // Загружаем данные из localStorage
-        this.coins = parseInt(localStorage.getItem('coins') || '0');
-        this.xp = parseInt(localStorage.getItem('xp') || '0');
-        this.level = parseInt(localStorage.getItem('level') || '1');
-        this.streak = parseInt(localStorage.getItem('streak') || '0');
+        try {
+            // Загружаем данные из localStorage
+            this.coins = parseInt(localStorage.getItem('coins') || '0');
+            this.xp = parseInt(localStorage.getItem('xp') || '0');
+            this.level = parseInt(localStorage.getItem('level') || '1');
+            this.streak = parseInt(localStorage.getItem('streak') || '0');
 
-        const savedBonuses = localStorage.getItem('bonuses');
-        if (savedBonuses) {
-            this.bonuses = JSON.parse(savedBonuses);
+            const savedBonuses = localStorage.getItem('bonuses');
+            if (savedBonuses) {
+                this.bonuses = JSON.parse(savedBonuses);
+            }
+
+            // Проверяем серию
+            this.checkStreak();
+
+            console.log('User data initialized:', {
+                coins: this.coins,
+                xp: this.xp,
+                level: this.level,
+                streak: this.streak
+            });
+        } catch (error) {
+            console.error('Error initializing user data:', error);
         }
-
-        // Проверяем серию
-        this.checkStreak();
     }
 
     checkStreak() {
-        const lastActive = localStorage.getItem('lastActive');
-        const today = new Date().toDateString();
+        try {
+            const lastActive = localStorage.getItem('lastActive');
+            const today = new Date().toDateString();
 
-        if (lastActive) {
-            const lastDate = new Date(lastActive);
-            const todayDate = new Date(today);
-            const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+            if (lastActive) {
+                const lastDate = new Date(lastActive);
+                const todayDate = new Date(today);
+                const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
 
-            if (diffDays === 1) {
-                this.streak++;
-            } else if (diffDays > 1) {
+                if (diffDays === 1) {
+                    this.streak++;
+                } else if (diffDays > 1) {
+                    this.streak = 1;
+                }
+            } else {
                 this.streak = 1;
             }
-        } else {
-            this.streak = 1;
-        }
 
-        localStorage.setItem('streak', this.streak.toString());
-        localStorage.setItem('lastActive', today);
+            localStorage.setItem('streak', this.streak.toString());
+            localStorage.setItem('lastActive', today);
+        } catch (error) {
+            console.error('Error checking streak:', error);
+        }
     }
 
     loadLevels() {
-        // Создаем уровни для каждого языка
-        const levelsContainer = document.getElementById('levelsGrid');
-        levelsContainer.innerHTML = '';
+        try {
+            const levelsContainer = document.getElementById('levelsGrid');
+            if (!levelsContainer) return;
 
-        for (let i = 1; i <= 10; i++) {
-            const levelButton = document.createElement('button');
-            levelButton.className = `level-btn ${this.currentLevel === i ? 'active' : ''}`;
-            levelButton.setAttribute('data-level', i);
+            levelsContainer.innerHTML = '';
 
-            // Проверяем, пройден ли уровень
             const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
-            const isCompleted = completedLevels.includes(`${this.currentLanguage}_${i}`);
 
-            levelButton.innerHTML = `
-                <span class="level-number">${i}</span>
-                <span class="level-status">${isCompleted ? '✅' : '🔒'}</span>
-                <span class="level-reward">${i * 10} 🪙</span>
-            `;
+            for (let i = 1; i <= 10; i++) {
+                const levelButton = document.createElement('button');
+                levelButton.className = 'level-btn';
+                levelButton.setAttribute('data-level', i);
 
-            if (i === 1 || completedLevels.includes(`${this.currentLanguage}_${i-1}`)) {
-                levelButton.onclick = () => this.startLevel(i);
-            } else {
-                levelButton.classList.add('locked');
+                const isCompleted = completedLevels.includes(`${this.currentLanguage}_${i}`);
+                const isUnlocked = i === 1 || completedLevels.includes(`${this.currentLanguage}_${i-1}`);
+
+                if (isCompleted) {
+                    levelButton.classList.add('completed');
+                }
+                if (!isUnlocked) {
+                    levelButton.classList.add('locked');
+                }
+                if (this.currentLevel === i) {
+                    levelButton.classList.add('active');
+                }
+
+                levelButton.innerHTML = `
+                    <span class="level-number">${i}</span>
+                    <span class="level-status">${isCompleted ? '✅' : isUnlocked ? '🔓' : '🔒'}</span>
+                    <span class="level-reward">${i * 10} 🪙</span>
+                `;
+
+                if (isUnlocked) {
+                    levelButton.onclick = () => this.startLevel(i);
+                }
+
+                levelsContainer.appendChild(levelButton);
             }
-
-            levelsContainer.appendChild(levelButton);
+        } catch (error) {
+            console.error('Error loading levels:', error);
         }
     }
 
     startLevel(level) {
-        this.currentLevel = level;
-        this.currentWordIndex = 0;
-        this.correctAnswers = 0;
-        this.words = this.getWordsForLevel(level);
-        this.testWords = [...this.words];
+        try {
+            this.currentLevel = level;
+            this.currentWordIndex = 0;
+            this.correctAnswers = 0;
+            this.words = this.getWordsForLevel(level);
+            this.testWords = [...this.words];
 
-        // Показываем урок
-        document.querySelector('.levels-section').style.display = 'none';
-        document.getElementById('currentLesson').style.display = 'block';
-        document.getElementById('levelResult').style.display = 'none';
+            // Показываем урок
+            const levelsSection = document.querySelector('.levels-section');
+            const currentLesson = document.getElementById('currentLesson');
+            const levelResult = document.getElementById('levelResult');
 
-        document.getElementById('lessonTitle').textContent = `Уровень ${level}`;
+            if (levelsSection) levelsSection.style.display = 'none';
+            if (currentLesson) {
+                currentLesson.style.display = 'block';
+                // Показываем слово дня (первое слово)
+                document.querySelector('.daily-word').style.display = 'none';
+            }
+            if (levelResult) levelResult.style.display = 'none';
 
-        this.showCurrentWord();
-        this.updateProgressSteps();
+            const lessonTitle = document.getElementById('lessonTitle');
+            if (lessonTitle) {
+                lessonTitle.textContent = `Уровень ${level}`;
+            }
+
+            this.showCurrentWord();
+            this.updateProgressSteps();
+
+            tg.HapticFeedback.impactOccurred('medium');
+        } catch (error) {
+            console.error('Error starting level:', error);
+        }
     }
 
     getWordsForLevel(level) {
-        // Получаем слова для текущего языка и уровня
-        const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
-        const startIndex = (level - 1) * 3;
-        return allWords.slice(startIndex, startIndex + 3);
+        try {
+            const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
+            const startIndex = (level - 1) * 3;
+            return allWords.slice(startIndex, startIndex + 3);
+        } catch (error) {
+            console.error('Error getting words for level:', error);
+            return [];
+        }
     }
 
     showCurrentWord() {
-        if (this.currentWordIndex < this.words.length) {
-            const word = this.words[this.currentWordIndex];
+        try {
+            if (this.currentWordIndex < this.words.length) {
+                const word = this.words[this.currentWordIndex];
 
-            document.getElementById('currentWord').textContent = word.word;
-            document.getElementById('currentTranslation').textContent = word.translation;
-            document.getElementById('translationDisplay').style.display = 'none';
-            document.getElementById('nextWordBtn').style.display = 'none';
-            document.getElementById('startTestBtn').style.display = 'none';
-            document.getElementById('quizOptions').style.display = 'none';
+                const currentWordEl = document.getElementById('currentWord');
+                const currentTranslationEl = document.getElementById('currentTranslation');
+                const translationDisplay = document.getElementById('translationDisplay');
+                const nextWordBtn = document.getElementById('nextWordBtn');
+                const startTestBtn = document.getElementById('startTestBtn');
+                const quizOptions = document.getElementById('quizOptions');
+                const wordCard = document.getElementById('wordCard');
 
-            // Обновляем эмодзи в зависимости от категории
-            const emojis = {
-                'greetings': '👋',
-                'phrases': '💬',
-                'family': '👨‍👩‍👧',
-                'food': '🍎',
-                'animals': '🐱',
-                'colors': '🎨',
-                'numbers': '🔢',
-                'verbs': '🏃'
-            };
-            document.getElementById('wordEmoji').textContent = emojis[word.category] || '📖';
+                if (currentWordEl) currentWordEl.textContent = word.word;
+                if (currentTranslationEl) currentTranslationEl.textContent = word.translation;
+                if (translationDisplay) translationDisplay.style.display = 'none';
+                if (nextWordBtn) nextWordBtn.style.display = 'none';
+                if (startTestBtn) startTestBtn.style.display = 'none';
+                if (quizOptions) quizOptions.style.display = 'none';
+                if (wordCard) wordCard.style.display = 'block';
 
-        } else {
-            // Все слова изучены, показываем кнопку теста
-            document.getElementById('wordCard').style.display = 'none';
-            document.getElementById('startTestBtn').style.display = 'block';
-            this.prepareTest();
+                // Обновляем эмодзи в зависимости от категории
+                const wordEmoji = document.getElementById('wordEmoji');
+                if (wordEmoji) {
+                    const emojis = {
+                        'greetings': '👋',
+                        'phrases': '💬',
+                        'family': '👨‍👩‍👧',
+                        'food': '🍎',
+                        'animals': '🐱',
+                        'colors': '🎨',
+                        'numbers': '🔢',
+                        'verbs': '🏃',
+                        'clothes': '👕',
+                        'weather': '☀️',
+                        'body': '👤',
+                        'time': '⏰',
+                        'transport': '🚗',
+                        'house': '🏠',
+                        'professions': '👨‍💼'
+                    };
+                    wordEmoji.textContent = emojis[word.category] || '📖';
+                }
+
+            } else {
+                // Все слова изучены, показываем кнопку теста
+                const wordCard = document.getElementById('wordCard');
+                const startTestBtn = document.getElementById('startTestBtn');
+
+                if (wordCard) wordCard.style.display = 'none';
+                if (startTestBtn) {
+                    startTestBtn.style.display = 'block';
+                    startTestBtn.onclick = () => this.prepareTest();
+                }
+            }
+        } catch (error) {
+            console.error('Error showing current word:', error);
         }
     }
 
     showTranslation() {
-        document.getElementById('translationDisplay').style.display = 'block';
-        document.getElementById('nextWordBtn').style.display = 'block';
+        try {
+            const translationDisplay = document.getElementById('translationDisplay');
+            const nextWordBtn = document.getElementById('nextWordBtn');
 
-        // Добавляем монетки за просмотр
-        this.addCoins(1);
+            if (translationDisplay) translationDisplay.style.display = 'block';
+            if (nextWordBtn) {
+                nextWordBtn.style.display = 'block';
+                nextWordBtn.onclick = () => this.nextWord();
+            }
+
+            // Добавляем монетки за просмотр
+            this.addCoins(1);
+
+            tg.HapticFeedback.impactOccurred('light');
+        } catch (error) {
+            console.error('Error showing translation:', error);
+        }
     }
 
     nextWord() {
-        // Отмечаем слово как изученное
-        this.addLearnedWord(this.words[this.currentWordIndex]);
+        try {
+            // Отмечаем слово как изученное
+            if (this.currentWordIndex < this.words.length) {
+                this.addLearnedWord(this.words[this.currentWordIndex]);
+            }
 
-        this.currentWordIndex++;
-        this.showCurrentWord();
-        this.updateProgressSteps();
+            this.currentWordIndex++;
+            this.showCurrentWord();
+            this.updateProgressSteps();
+        } catch (error) {
+            console.error('Error moving to next word:', error);
+        }
     }
 
     prepareTest() {
-        const testContainer = document.getElementById('quizOptions');
-        const optionsGrid = document.getElementById('optionsGrid');
-        optionsGrid.innerHTML = '';
+        try {
+            const testContainer = document.getElementById('quizOptions');
+            const optionsGrid = document.getElementById('optionsGrid');
 
-        // Перемешиваем слова для теста
-        const shuffled = [...this.testWords].sort(() => Math.random() - 0.5);
+            if (!testContainer || !optionsGrid) return;
 
-        shuffled.forEach(word => {
-            const card = document.createElement('div');
-            card.className = 'test-word-card';
-            card.innerHTML = `
-                <div class="test-word">${word.word}</div>
-                <div class="test-options">
-                    ${this.generateTranslationOptions(word)}
-                </div>
-            `;
-            optionsGrid.appendChild(card);
-        });
+            optionsGrid.innerHTML = '';
 
-        testContainer.style.display = 'block';
-        document.getElementById('wordCard').style.display = 'none';
+            // Перемешиваем слова для теста
+            const shuffled = [...this.testWords].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach(word => {
+                const card = document.createElement('div');
+                card.className = 'test-word-card';
+
+                const optionsHtml = this.generateTranslationOptions(word);
+
+                card.innerHTML = `
+                    <div class="test-word">${word.word}</div>
+                    <div class="test-options" id="options-${word.id}">
+                        ${optionsHtml}
+                    </div>
+                `;
+                optionsGrid.appendChild(card);
+            });
+
+            testContainer.style.display = 'block';
+
+            const wordCard = document.getElementById('wordCard');
+            if (wordCard) wordCard.style.display = 'none';
+
+            const startTestBtn = document.getElementById('startTestBtn');
+            if (startTestBtn) startTestBtn.style.display = 'none';
+
+        } catch (error) {
+            console.error('Error preparing test:', error);
+        }
     }
 
     generateTranslationOptions(word) {
-        // Генерируем 3 варианта перевода
-        const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
-        let options = [word.translation];
+        try {
+            const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
+            let options = [word.translation];
 
-        while (options.length < 3) {
-            const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
-            if (!options.includes(randomWord.translation) && randomWord.translation !== word.translation) {
-                options.push(randomWord.translation);
+            while (options.length < 3) {
+                const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
+                if (!options.includes(randomWord.translation) && randomWord.translation !== word.translation) {
+                    options.push(randomWord.translation);
+                }
             }
+
+            // Перемешиваем
+            options = options.sort(() => Math.random() - 0.5);
+
+            return options.map(opt =>
+                `<button class="test-option" onclick="game.checkTestAnswer('${word.word}', '${opt}', '${word.translation}', this)">${opt}</button>`
+            ).join('');
+        } catch (error) {
+            console.error('Error generating options:', error);
+            return '';
         }
-
-        // Перемешиваем
-        options = options.sort(() => Math.random() - 0.5);
-
-        return options.map(opt =>
-            `<button class="test-option" onclick="game.checkTestAnswer('${word.word}', '${opt}', '${word.translation}')">${opt}</button>`
-        ).join('');
     }
 
-    checkTestAnswer(word, selected, correct) {
-        const isCorrect = selected === correct;
+    checkTestAnswer(word, selected, correct, button) {
+        try {
+            const isCorrect = selected === correct;
 
-        if (isCorrect) {
-            this.correctAnswers++;
-            this.addCoins(5);
-            this.addXP(10);
+            if (isCorrect) {
+                this.correctAnswers++;
+                this.addCoins(5);
+                this.addXP(10);
 
-            // Визуальный эффект
-            tg.HapticFeedback.notificationOccurred('success');
+                // Визуальный эффект
+                tg.HapticFeedback.notificationOccurred('success');
 
-            // Отмечаем кнопку как правильную
-            event.target.classList.add('correct');
-            event.target.disabled = true;
+                // Отмечаем кнопку как правильную
+                button.classList.add('correct');
+                button.disabled = true;
 
-            // Проверяем, все ли слова угаданы
-            if (this.correctAnswers === this.words.length) {
-                this.completeLevel();
-            }
-        } else {
-            tg.HapticFeedback.notificationOccurred('error');
-            event.target.classList.add('wrong');
+                // Блокируем все кнопки в этой группе
+                const buttons = button.parentElement.querySelectorAll('.test-option');
+                buttons.forEach(btn => {
+                    if (btn !== button) {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.5';
+                    }
+                });
 
-            // Показываем правильный ответ
-            const buttons = event.target.parentElement.querySelectorAll('.test-option');
-            buttons.forEach(btn => {
-                if (btn.textContent === correct) {
-                    btn.classList.add('show-correct');
+                // Проверяем, все ли слова угаданы
+                if (this.correctAnswers === this.words.length) {
+                    setTimeout(() => {
+                        this.completeLevel();
+                    }, 1000);
                 }
-            });
+            } else {
+                tg.HapticFeedback.notificationOccurred('error');
+                button.classList.add('wrong');
+
+                // Показываем правильный ответ
+                const buttons = button.parentElement.querySelectorAll('.test-option');
+                buttons.forEach(btn => {
+                    if (btn.textContent === correct) {
+                        btn.classList.add('show-correct');
+                    }
+                });
+
+                // Если есть защита, не отмечаем как ошибку
+                if (this.bonuses.shield) {
+                    this.bonuses.shield = false;
+                    localStorage.setItem('bonuses', JSON.stringify(this.bonuses));
+                    this.showNotification('🛡️ Защита сработала! Ошибка не засчитана');
+                }
+            }
+        } catch (error) {
+            console.error('Error checking test answer:', error);
         }
     }
 
     completeLevel() {
-        // Начисляем награды
-        const reward = this.currentLevel * 10;
-        this.addCoins(reward);
-        this.addXP(50);
+        try {
+            // Начисляем награды
+            const reward = this.currentLevel * 10;
+            this.addCoins(reward);
+            this.addXP(50);
 
-        // Отмечаем уровень как пройденный
-        const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
-        completedLevels.push(`${this.currentLanguage}_${this.currentLevel}`);
-        localStorage.setItem('completedLevels', JSON.stringify(completedLevels));
+            // Отмечаем уровень как пройденный
+            const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
+            const levelKey = `${this.currentLanguage}_${this.currentLevel}`;
 
-        // Показываем результаты
-        document.getElementById('currentLesson').style.display = 'none';
-        document.getElementById('levelResult').style.display = 'block';
+            if (!completedLevels.includes(levelKey)) {
+                completedLevels.push(levelKey);
+                localStorage.setItem('completedLevels', JSON.stringify(completedLevels));
+            }
 
-        document.getElementById('correctAnswers').textContent = this.correctAnswers;
-        document.getElementById('earnedCoins').textContent = reward;
-        document.getElementById('earnedXP').textContent = 50;
+            // Показываем результаты
+            const currentLesson = document.getElementById('currentLesson');
+            const levelResult = document.getElementById('levelResult');
 
-        // Проверяем достижения
-        this.checkAchievements();
+            if (currentLesson) currentLesson.style.display = 'none';
+            if (levelResult) {
+                levelResult.style.display = 'flex';
+
+                const correctAnswersEl = document.getElementById('correctAnswers');
+                const earnedCoinsEl = document.getElementById('earnedCoins');
+                const earnedXpEl = document.getElementById('earnedXP');
+
+                if (correctAnswersEl) correctAnswersEl.textContent = this.correctAnswers;
+                if (earnedCoinsEl) earnedCoinsEl.textContent = reward;
+                if (earnedXpEl) earnedXpEl.textContent = 50;
+            }
+
+            // Проверяем достижения
+            this.checkAchievements();
+
+            // Обновляем уровни
+            this.loadLevels();
+
+        } catch (error) {
+            console.error('Error completing level:', error);
+        }
     }
 
     nextLevel() {
-        if (this.currentLevel < 10) {
-            this.startLevel(this.currentLevel + 1);
-        } else {
-            this.showSection('levels');
+        try {
+            if (this.currentLevel < 10) {
+                this.startLevel(this.currentLevel + 1);
+            } else {
+                this.showSection('levels');
+            }
+        } catch (error) {
+            console.error('Error going to next level:', error);
         }
     }
 
     repeatLevel() {
-        this.startLevel(this.currentLevel);
+        try {
+            this.startLevel(this.currentLevel);
+        } catch (error) {
+            console.error('Error repeating level:', error);
+        }
     }
 
     addLearnedWord(word) {
-        let learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
+        try {
+            let learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
 
-        if (!learnedWords.find(w => w.id === word.id && w.lang === this.currentLanguage)) {
-            learnedWords.push({
-                id: word.id,
-                lang: this.currentLanguage,
-                word: word.word,
-                translation: word.translation,
-                learnedAt: new Date().toISOString(),
-                level: this.currentLevel
-            });
+            if (!learnedWords.find(w => w.id === word.id && w.lang === this.currentLanguage)) {
+                learnedWords.push({
+                    id: word.id,
+                    lang: this.currentLanguage,
+                    word: word.word,
+                    translation: word.translation,
+                    category: word.category,
+                    learnedAt: new Date().toISOString(),
+                    level: this.currentLevel
+                });
 
-            localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
-            this.updateUI();
+                localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+                this.updateUI();
+            }
+        } catch (error) {
+            console.error('Error adding learned word:', error);
         }
     }
 
     addCoins(amount) {
-        this.coins += amount;
-        localStorage.setItem('coins', this.coins.toString());
-        this.updateUI();
+        try {
+            if (this.bonuses.doubleCoins) {
+                amount *= 2;
+            }
+            this.coins += amount;
+            localStorage.setItem('coins', this.coins.toString());
+            this.updateUI();
+        } catch (error) {
+            console.error('Error adding coins:', error);
+        }
     }
 
     addXP(amount) {
-        this.xp += amount;
-        localStorage.setItem('xp', this.xp.toString());
+        try {
+            this.xp += amount;
+            localStorage.setItem('xp', this.xp.toString());
 
-        // Проверяем повышение уровня
-        const xpNeeded = this.level * 100;
-        if (this.xp >= xpNeeded) {
-            this.level++;
-            localStorage.setItem('level', this.level.toString());
-            this.showNotification(`🎉 Уровень повышен! Теперь ${this.level} уровень!`);
+            // Проверяем повышение уровня
+            const xpNeeded = this.level * 100;
+            if (this.xp >= xpNeeded) {
+                this.level++;
+                localStorage.setItem('level', this.level.toString());
+                this.showNotification(`🎉 Уровень повышен! Теперь ${this.level} уровень!`);
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+
+            this.updateUI();
+        } catch (error) {
+            console.error('Error adding XP:', error);
         }
-
-        this.updateUI();
     }
 
     updateUI() {
-        document.getElementById('streak').textContent = this.streak;
-        document.getElementById('level').textContent = this.level;
-        document.getElementById('coins').textContent = this.coins;
+        try {
+            const streakEl = document.getElementById('streak');
+            const levelEl = document.getElementById('level');
+            const coinsEl = document.getElementById('coins');
+            const wordsEl = document.getElementById('words');
 
-        const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
-        document.getElementById('words').textContent = learnedWords.length;
+            if (streakEl) streakEl.textContent = this.streak;
+            if (levelEl) levelEl.textContent = this.level;
+            if (coinsEl) coinsEl.textContent = this.coins;
 
-        // Обновляем XP бар
-        const xpNeeded = this.level * 100;
-        const xpForCurrentLevel = (this.level - 1) * 100;
-        const xpProgress = this.xp - xpForCurrentLevel;
-        const xpNeededForNext = xpNeeded - xpForCurrentLevel;
-        const percentage = (xpProgress / xpNeededForNext) * 100;
+            const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
+            if (wordsEl) wordsEl.textContent = learnedWords.length;
 
-        document.getElementById('xpBar').style.width = percentage + '%';
-        document.getElementById('xpText').textContent = `${xpProgress}/${xpNeededForNext} XP`;
+            // Обновляем XP бар
+            const xpBar = document.getElementById('xpBar');
+            const xpText = document.getElementById('xpText');
+
+            if (xpBar && xpText) {
+                const xpNeeded = this.level * 100;
+                const xpForCurrentLevel = (this.level - 1) * 100;
+                const xpProgress = this.xp - xpForCurrentLevel;
+                const xpNeededForNext = xpNeeded - xpForCurrentLevel;
+                const percentage = (xpProgress / xpNeededForNext) * 100;
+
+                xpBar.style.width = percentage + '%';
+                xpText.textContent = `${xpProgress}/${xpNeededForNext} XP`;
+            }
+        } catch (error) {
+            console.error('Error updating UI:', error);
+        }
     }
 
     updateProgressSteps() {
-        const stepsContainer = document.getElementById('progressSteps');
-        stepsContainer.innerHTML = '';
+        try {
+            const stepsContainer = document.getElementById('progressSteps');
+            if (!stepsContainer) return;
 
-        for (let i = 0; i < this.wordsInLevel; i++) {
-            const step = document.createElement('div');
-            step.className = `progress-step ${i < this.currentWordIndex ? 'completed' : ''} ${i === this.currentWordIndex ? 'current' : ''}`;
+            stepsContainer.innerHTML = '';
 
-            if (i < this.currentWordIndex) {
-                step.innerHTML = '✅';
-            } else if (i === this.currentWordIndex) {
-                step.innerHTML = '📖';
-            } else {
-                step.innerHTML = '○';
+            for (let i = 0; i < this.wordsInLevel; i++) {
+                const step = document.createElement('div');
+                step.className = 'progress-step';
+
+                if (i < this.currentWordIndex) {
+                    step.classList.add('completed');
+                    step.innerHTML = '✅';
+                } else if (i === this.currentWordIndex) {
+                    step.classList.add('current');
+                    step.innerHTML = '📖';
+                } else {
+                    step.innerHTML = '○';
+                }
+
+                stepsContainer.appendChild(step);
             }
-
-            stepsContainer.appendChild(step);
+        } catch (error) {
+            console.error('Error updating progress steps:', error);
         }
     }
 
     checkAchievements() {
-        const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
-        const achievements = JSON.parse(localStorage.getItem('achievements') || '[]');
-        const newAchievements = [];
+        try {
+            const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
+            const achievements = JSON.parse(localStorage.getItem('achievements') || '[]');
+            const newAchievements = [];
 
-        // Достижения за слова
-        if (learnedWords.length >= 10 && !achievements.includes('word_novice')) {
-            achievements.push('word_novice');
-            newAchievements.push('🌱 Новичок - выучить 10 слов');
-            this.addCoins(50);
-        }
-        if (learnedWords.length >= 50 && !achievements.includes('word_enthusiast')) {
-            achievements.push('word_enthusiast');
-            newAchievements.push('📚 Энтузиаст - выучить 50 слов');
-            this.addCoins(100);
-        }
+            // Достижения за слова
+            if (learnedWords.length >= 10 && !achievements.includes('word_novice')) {
+                achievements.push('word_novice');
+                newAchievements.push({
+                    emoji: '🌱',
+                    title: 'Новичок',
+                    desc: 'Выучить 10 слов'
+                });
+                this.addCoins(50);
+            }
+            if (learnedWords.length >= 50 && !achievements.includes('word_enthusiast')) {
+                achievements.push('word_enthusiast');
+                newAchievements.push({
+                    emoji: '📚',
+                    title: 'Энтузиаст',
+                    desc: 'Выучить 50 слов'
+                });
+                this.addCoins(100);
+            }
+            if (learnedWords.length >= 100 && !achievements.includes('word_master')) {
+                achievements.push('word_master');
+                newAchievements.push({
+                    emoji: '👑',
+                    title: 'Мастер слов',
+                    desc: 'Выучить 100 слов'
+                });
+                this.addCoins(200);
+            }
 
-        // Достижения за серию
-        if (this.streak >= 7 && !achievements.includes('streak_week')) {
-            achievements.push('streak_week');
-            newAchievements.push('🔥 Неделя - заниматься 7 дней подряд');
-            this.addCoins(70);
-        }
+            // Достижения за серию
+            if (this.streak >= 7 && !achievements.includes('streak_week')) {
+                achievements.push('streak_week');
+                newAchievements.push({
+                    emoji: '🔥',
+                    title: 'Неделя',
+                    desc: 'Заниматься 7 дней подряд'
+                });
+                this.addCoins(70);
+            }
+            if (this.streak >= 30 && !achievements.includes('streak_month')) {
+                achievements.push('streak_month');
+                newAchievements.push({
+                    emoji: '⚡',
+                    title: 'Месяц',
+                    desc: 'Заниматься 30 дней подряд'
+                });
+                this.addCoins(150);
+            }
 
-        if (newAchievements.length > 0) {
-            localStorage.setItem('achievements', JSON.stringify(achievements));
-            this.showAchievements(newAchievements);
+            // Достижения за уровни
+            const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
+            if (completedLevels.length >= 10 && !achievements.includes('level_beginner')) {
+                achievements.push('level_beginner');
+                newAchievements.push({
+                    emoji: '🎯',
+                    title: 'Начинающий',
+                    desc: 'Пройдено 10 уровней'
+                });
+                this.addCoins(100);
+            }
+
+            if (newAchievements.length > 0) {
+                localStorage.setItem('achievements', JSON.stringify(achievements));
+                this.showAchievements(newAchievements);
+            }
+        } catch (error) {
+            console.error('Error checking achievements:', error);
         }
     }
 
     showAchievements(achievements) {
-        const message = achievements.map(ach => `🏆 ${ach}`).join('\n');
-        this.showNotification(message);
+        try {
+            const container = document.getElementById('recentAchievements');
+            if (!container) return;
+
+            achievements.forEach(ach => {
+                const div = document.createElement('div');
+                div.className = 'achievement-badge';
+                div.innerHTML = `
+                    <div class="achievement-icon">${ach.emoji}</div>
+                    <div class="achievement-info">
+                        <div class="achievement-title">${ach.title}</div>
+                        <div class="achievement-desc">${ach.desc}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            this.showNotification(`🏆 Новые достижения: +${achievements.length}`);
+        } catch (error) {
+            console.error('Error showing achievements:', error);
+        }
     }
 
     showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.textContent = message;
-        document.body.appendChild(notification);
+        try {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
 
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        } catch (error) {
+            console.error('Error showing notification:', error);
+        }
     }
 
     playWordSound() {
-        const word = document.getElementById('currentWord').textContent;
-        const utterance = new SpeechSynthesisUtterance(word);
+        try {
+            const word = document.getElementById('currentWord').textContent;
+            const utterance = new SpeechSynthesisUtterance(word);
 
-        const langCodes = {
-            'en': 'en-US',
-            'es': 'es-ES',
-            'fr': 'fr-FR',
-            'de': 'de-DE'
-        };
-        utterance.lang = langCodes[this.currentLanguage] || 'en-US';
+            const langCodes = {
+                'en': 'en-US',
+                'es': 'es-ES',
+                'fr': 'fr-FR',
+                'de': 'de-DE',
+                'it': 'it-IT',
+                'ja': 'ja-JP'
+            };
+            utterance.lang = langCodes[this.currentLanguage] || 'en-US';
 
-        window.speechSynthesis.speak(utterance);
-        tg.HapticFeedback.impactOccurred('light');
+            window.speechSynthesis.speak(utterance);
+            tg.HapticFeedback.impactOccurred('light');
+        } catch (error) {
+            console.error('Error playing sound:', error);
+        }
     }
 
     buyBonus(bonusType) {
-        const prices = {
-            'hint': 10,
-            'double': 30,
-            'shield': 25,
-            'time': 15
-        };
+        try {
+            const prices = {
+                'hint': 10,
+                'double': 30,
+                'shield': 25,
+                'time': 15
+            };
 
-        if (this.coins >= prices[bonusType]) {
-            this.coins -= prices[bonusType];
-            localStorage.setItem('coins', this.coins.toString());
+            if (this.coins >= prices[bonusType]) {
+                this.coins -= prices[bonusType];
+                localStorage.setItem('coins', this.coins.toString());
 
-            switch(bonusType) {
-                case 'hint':
-                    this.bonuses.hints++;
-                    break;
-                case 'double':
-                    this.bonuses.doubleCoins = true;
-                    break;
-                case 'shield':
-                    this.bonuses.shield = true;
-                    break;
+                switch(bonusType) {
+                    case 'hint':
+                        this.bonuses.hints++;
+                        this.showNotification('💡 Подсказка куплена!');
+                        break;
+                    case 'double':
+                        this.bonuses.doubleCoins = true;
+                        this.showNotification('2️⃣ Двойные монеты активированы на 24 часа!');
+                        break;
+                    case 'shield':
+                        this.bonuses.shield = true;
+                        this.showNotification('🛡️ Защита активирована на 1 ошибку!');
+                        break;
+                    case 'time':
+                        this.showNotification('⏱️ Дополнительное время не реализовано в этой версии');
+                        break;
+                }
+
+                localStorage.setItem('bonuses', JSON.stringify(this.bonuses));
+                this.updateUI();
+            } else {
+                this.showNotification('❌ Недостаточно монет!');
             }
-
-            localStorage.setItem('bonuses', JSON.stringify(this.bonuses));
-            this.updateUI();
-            this.showNotification(`✅ Бонус "${bonusType}" куплен!`);
-        } else {
-            this.showNotification('❌ Недостаточно монет!');
+        } catch (error) {
+            console.error('Error buying bonus:', error);
         }
     }
 
     showSection(section) {
-        // Обновляем навигацию
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
+        try {
+            // Обновляем навигацию
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(section)) {
+                    btn.classList.add('active');
+                }
+            });
 
-        // Прячем все секции
-        document.querySelector('.levels-section').style.display = 'none';
-        document.getElementById('currentLesson').style.display = 'none';
-        document.getElementById('levelResult').style.display = 'none';
-        document.getElementById('shopSection').style.display = 'none';
+            // Прячем все секции
+            const levelsSection = document.querySelector('.levels-section');
+            const currentLesson = document.getElementById('currentLesson');
+            const levelResult = document.getElementById('levelResult');
+            const shopSection = document.getElementById('shopSection');
+            const dailyWord = document.querySelector('.daily-word');
 
-        // Показываем нужную секцию
-        switch(section) {
-            case 'game':
-                document.querySelector('.levels-section').style.display = 'block';
-                document.getElementById('currentLesson').style.display = 'block';
-                break;
-            case 'levels':
-                document.querySelector('.levels-section').style.display = 'block';
-                this.loadLevels();
-                break;
-            case 'shop':
-                document.getElementById('shopSection').style.display = 'block';
-                break;
-            case 'stats':
-                this.showStats();
-                break;
-            case 'profile':
-                this.showProfile();
-                break;
+            if (levelsSection) levelsSection.style.display = 'none';
+            if (currentLesson) currentLesson.style.display = 'none';
+            if (levelResult) levelResult.style.display = 'none';
+            if (shopSection) shopSection.style.display = 'none';
+            if (dailyWord) dailyWord.style.display = 'none';
+
+            // Показываем нужную секцию
+            switch(section) {
+                case 'игра':
+                case 'game':
+                    if (levelsSection) levelsSection.style.display = 'block';
+                    if (currentLesson && this.currentLevel) {
+                        currentLesson.style.display = 'block';
+                    }
+                    break;
+
+                case 'уровни':
+                case 'levels':
+                    if (levelsSection) {
+                        levelsSection.style.display = 'block';
+                        this.loadLevels();
+                    }
+                    break;
+
+                case 'магазин':
+                case 'shop':
+                    if (shopSection) shopSection.style.display = 'block';
+                    break;
+
+                case 'статистика':
+                case 'stats':
+                    this.showStats();
+                    break;
+
+                case 'профиль':
+                case 'profile':
+                    this.showProfile();
+                    break;
+            }
+
+            tg.HapticFeedback.selectionChanged();
+        } catch (error) {
+            console.error('Error showing section:', error);
         }
     }
 
     showStats() {
-        const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
-        const achievements = JSON.parse(localStorage.getItem('achievements') || '[]');
-        const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
+        try {
+            const learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
+            const achievements = JSON.parse(localStorage.getItem('achievements') || '[]');
+            const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
 
-        const statsHtml = `
-            <div class="stats-modal">
-                <h3>📊 Статистика</h3>
-                <div class="stats-list">
-                    <p>🔥 Серия: ${this.streak} дней</p>
-                    <p>📚 Всего слов: ${learnedWords.length}</p>
-                    <p>⭐ Уровень: ${this.level}</p>
-                    <p>✨ Опыт: ${this.xp}</p>
-                    <p>🪙 Монеты: ${this.coins}</p>
-                    <p>🏆 Достижения: ${achievements.length}</p>
-                    <p>🎮 Пройдено уровней: ${completedLevels.length}</p>
+            // Считаем статистику по языкам
+            const languageStats = {};
+            learnedWords.forEach(word => {
+                if (!languageStats[word.lang]) {
+                    languageStats[word.lang] = 0;
+                }
+                languageStats[word.lang]++;
+            });
+
+            const langNames = {
+                'en': '🇬🇧 Английский',
+                'es': '🇪🇸 Испанский',
+                'fr': '🇫🇷 Французский',
+                'de': '🇩🇪 Немецкий',
+                'it': '🇮🇹 Итальянский',
+                'ja': '🇯🇵 Японский'
+            };
+
+            let languageStatsText = '';
+            for (let lang in languageStats) {
+                languageStatsText += `<p>${langNames[lang] || lang}: ${languageStats[lang]} слов</p>`;
+            }
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="stats-modal">
+                    <h3>📊 Статистика</h3>
+                    <div class="stats-list">
+                        <p>🔥 Серия: ${this.streak} дней</p>
+                        <p>📚 Всего слов: ${learnedWords.length}</p>
+                        <p>⭐ Уровень: ${this.level}</p>
+                        <p>✨ Опыт: ${this.xp}</p>
+                        <p>🪙 Монеты: ${this.coins}</p>
+                        <p>🏆 Достижения: ${achievements.length}</p>
+                        <p>🎮 Пройдено уровней: ${completedLevels.length}</p>
+                        <h4>🌍 По языкам:</h4>
+                        ${languageStatsText || '<p>Нет данных</p>'}
+                    </div>
+                    <button class="close-btn" onclick="this.closest('.modal').remove()">Закрыть</button>
                 </div>
-                <button class="close-btn" onclick="game.showSection('game')">Закрыть</button>
-            </div>
-        `;
+            `;
 
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.innerHTML = statsHtml;
-        document.body.appendChild(modal);
+            document.body.appendChild(modal);
 
-        setTimeout(() => {
-            modal.remove();
-        }, 5000);
+            setTimeout(() => {
+                modal.remove();
+            }, 10000);
+        } catch (error) {
+            console.error('Error showing stats:', error);
+        }
     }
 
     showProfile() {
-        const user = tg.initDataUnsafe?.user;
+        try {
+            const user = tg.initDataUnsafe?.user;
 
-        const profileHtml = `
-            <div class="profile-modal">
-                <h3>👤 Профиль</h3>
-                <div class="profile-info">
-                    <p>Имя: ${user?.first_name || 'Гость'}</p>
-                    <p>Username: @${user?.username || 'не указан'}</p>
-                    <p>ID: ${user?.id || 'local'}</p>
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="profile-modal">
+                    <h3>👤 Профиль</h3>
+                    <div class="profile-info">
+                        <p><strong>Имя:</strong> ${user?.first_name || 'Гость'}</p>
+                        <p><strong>Фамилия:</strong> ${user?.last_name || '—'}</p>
+                        <p><strong>Username:</strong> @${user?.username || 'не указан'}</p>
+                        <p><strong>ID:</strong> ${user?.id || 'local'}</p>
+                        <p><strong>Язык интерфейса:</strong> ${user?.language_code || 'ru'}</p>
+                    </div>
+                    <div class="bonuses-info">
+                        <h4>🎁 Бонусы:</h4>
+                        <p>💡 Подсказки: ${this.bonuses.hints}</p>
+                        <p>2️⃣ Двойные монеты: ${this.bonuses.doubleCoins ? '✅ Активен' : '❌ Не активен'}</p>
+                        <p>🛡️ Защита: ${this.bonuses.shield ? '✅ Активна' : '❌ Не активна'}</p>
+                    </div>
+                    <button class="close-btn" onclick="this.closest('.modal').remove()">Закрыть</button>
                 </div>
-                <div class="bonuses-info">
-                    <h4>🎁 Бонусы:</h4>
-                    <p>💡 Подсказки: ${this.bonuses.hints}</p>
-                    <p>2️⃣ Двойные монеты: ${this.bonuses.doubleCoins ? '✅' : '❌'}</p>
-                    <p>🛡️ Защита: ${this.bonuses.shield ? '✅' : '❌'}</p>
-                </div>
-                <button class="close-btn" onclick="game.showSection('game')">Закрыть</button>
-            </div>
-        `;
+            `;
 
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.innerHTML = profileHtml;
-        document.body.appendChild(modal);
+            document.body.appendChild(modal);
 
-        setTimeout(() => {
-            modal.remove();
-        }, 5000);
+            setTimeout(() => {
+                modal.remove();
+            }, 10000);
+        } catch (error) {
+            console.error('Error showing profile:', error);
+        }
     }
 }
 
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
 
-const game = new GameManager();
+let game;
 
-// Глобальные функции для вызова из HTML
-function playWordSound() {
-    game.playWordSound();
-}
+// Ждем загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        game = new GameManager();
 
-function showTranslation() {
-    game.showTranslation();
-}
+        // Делаем game глобальным
+        window.game = game;
 
-function nextWord() {
-    game.nextWord();
-}
+        // Глобальные функции для вызова из HTML
+        window.playWordSound = () => game.playWordSound();
+        window.showTranslation = () => game.showTranslation();
+        window.nextWord = () => game.nextWord();
+        window.startTest = () => game.prepareTest();
+        window.showSection = (section) => game.showSection(section);
+        window.buyBonus = (type) => game.buyBonus(type);
+        window.nextLevel = () => game.nextLevel();
+        window.repeatLevel = () => game.repeatLevel();
 
-function startTest() {
-    document.getElementById('startTestBtn').style.display = 'none';
-    game.prepareTest();
-}
-
-function showSection(section) {
-    game.showSection(section);
-}
-
-function buyBonus(type) {
-    game.buyBonus(type);
-}
-
-function nextLevel() {
-    game.nextLevel();
-}
-
-function repeatLevel() {
-    game.repeatLevel();
-}
-
-// Обработчики для кнопок языка
-document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.lang-btn').forEach(b => {
-            b.classList.remove('active');
-        });
-        this.classList.add('active');
-
-        game.currentLanguage = this.dataset.lang;
-        game.loadLevels();
-
-        tg.HapticFeedback.impactOccurred('soft');
-    });
+        console.log('Game initialized successfully');
+    } catch (error) {
+        console.error('Error initializing game:', error);
+    }
 });
