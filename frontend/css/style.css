@@ -583,3 +583,458 @@ body {
         margin-bottom: 5px;
     }
 }
+/* ==================== ИГРОВЫЕ СТИЛИ ==================== */
+
+/* Статистика игрока */
+.player-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+/* Прогресс бар */
+.xp-container {
+    background: rgba(255,255,255,0.2);
+    height: 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.xp-bar {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.xp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Сетка уровней */
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.level-btn {
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.level-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+.level-btn.locked {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.level-btn .level-number {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.level-btn .level-status {
+    font-size: 14px;
+}
+
+.level-btn .level-reward {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+/* Прогресс урока */
+.progress-steps {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.progress-step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: #f0f0f0;
+    color: #999;
+}
+
+.progress-step.completed {
+    background: #4CAF50;
+    color: white;
+}
+
+.progress-step.current {
+    background: #667eea;
+    color: white;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Карточка слова */
+.word-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.word-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.word-emoji {
+    font-size: 48px;
+}
+
+.word-text {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.translation-display {
+    margin: 20px 0;
+}
+
+.translation-text {
+    font-size: 32px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.word-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+}
+
+/* Тест */
+.test-word-card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.test-word {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.test-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.test-option {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.test-option:hover {
+    border-color: #667eea;
+    transform: scale(1.02);
+}
+
+.test-option.correct {
+    background: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+.test-option.wrong {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+    opacity: 0.7;
+}
+
+.test-option.show-correct {
+    background: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+    animation: glow 1s;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px #4CAF50; }
+    50% { box-shadow: 0 0 20px #4CAF50; }
+}
+
+/* Кнопка начать тест */
+.start-test-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 20px 0;
+    animation: pulse 2s infinite;
+}
+
+/* Результаты уровня */
+.level-result {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.result-card {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.result-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+
+.result-stat {
+    text-align: center;
+}
+
+.result-value {
+    display: block;
+    font-size: 36px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.result-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.result-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.result-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.next-level {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.repeat-level {
+    background: #f0f0f0;
+    color: #333;
+}
+
+/* Магазин */
+.shop-section {
+    margin: 20px 0;
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.shop-item {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 20px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.shop-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.bonus-icon {
+    display: block;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.bonus-name {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.bonus-price {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* Модальные окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.stats-modal, .profile-modal {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.stats-list p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.close-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Адаптация */
+@media (max-width: 480px) {
+    .levels-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .player-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .word-text {
+        font-size: 36px;
+    }
+
+    .word-actions {
+        flex-direction: column;
+    }
+
+    .test-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+    }
+}

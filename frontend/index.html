@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LearnLang - изучение языков</title>
+    <title>LearnLang - игровое изучение языков</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="app-container">
+        <!-- Шапка с профилем -->
         <header class="header">
-            <h1>LearnLang</h1>
-            <p class="subtitle">Учите языки с удовольствием</p>
-        </header>
+            <div class="profile-row">
+                <div class="profile-info">
+                    <h1>LearnLang</h1>
+                    <p class="subtitle">Учите языки играя</p>
+                </div>
+                <div class="profile-avatar">
+                    <span class="avatar-emoji">👤</span>
+                </div>
+            </div>
 
-        <main>
-            <!-- Статистика пользователя -->
-            <div class="stats-card">
+            <!-- Статистика игрока -->
+            <div class="player-stats">
                 <div class="stat-item">
                     <span class="stat-value" id="streak">0</span>
-                    <span class="stat-label">Дней подряд</span>
+                    <span class="stat-label">🔥 дней</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-value" id="words">0</span>
-                    <span class="stat-label">Слов выучено</span>
+                    <span class="stat-label">📚 слов</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-value" id="level">1</span>
-                    <span class="stat-label">Уровень</span>
+                    <span class="stat-label">⭐ уровень</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="coins">0</span>
+                    <span class="stat-label">🪙 монет</span>
                 </div>
             </div>
 
             <!-- Прогресс бар опыта -->
-            <div class="xp-bar-container">
+            <div class="xp-container">
                 <div class="xp-bar" id="xpBar" style="width: 0%"></div>
                 <span class="xp-text" id="xpText">0/100 XP</span>
             </div>
+        </header>
 
+        <main>
             <!-- Выбор языка -->
             <div class="language-selector">
-                <h3>Выберите язык:</h3>
+                <h3>🌍 Выберите язык:</h3>
                 <div class="language-grid">
                     <button class="lang-btn active" data-lang="en">
                         <span class="flag">🇬🇧</span>
@@ -68,134 +80,145 @@
                 </div>
             </div>
 
-            <!-- Вкладки с упражнениями -->
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('daily')">Слово дня</button>
-                <button class="tab-btn" onclick="switchTab('translate')">Перевод</button>
-                <button class="tab-btn" onclick="switchTab('quiz')">Викторина</button>
-                <button class="tab-btn" onclick="switchTab('match')">Сопоставление</button>
+            <!-- Игровые уровни -->
+            <div class="levels-section">
+                <h3>🎮 Выберите уровень:</h3>
+                <div class="levels-grid" id="levelsGrid">
+                    <!-- Уровни будут загружаться через JS -->
+                </div>
             </div>
 
-            <!-- Контент вкладок -->
-            <div id="dailyTab" class="tab-content active">
-                <div class="daily-word">
-                    <div class="word-card">
-                        <p class="word" id="dailyWord">"Hello"</p>
-                        <p class="translation" id="dailyTranslation">Привет</p>
-                        <p class="category" id="dailyCategory">greetings</p>
-                        <button class="audio-btn" onclick="playPronunciation()">
-                            🔊 Послушать
+            <!-- Текущее задание -->
+            <div class="current-lesson" id="currentLesson" style="display: none;">
+                <h3 id="lessonTitle">Уровень 1</h3>
+
+                <!-- Прогресс уровня -->
+                <div class="lesson-progress">
+                    <div class="progress-steps" id="progressSteps">
+                        <!-- Шаги будут добавляться через JS -->
+                    </div>
+                </div>
+
+                <!-- Карточка слова -->
+                <div class="word-card" id="wordCard">
+                    <div class="word-display">
+                        <span class="word-emoji" id="wordEmoji">📖</span>
+                        <span class="word-text" id="currentWord">Hello</span>
+                    </div>
+                    <div class="translation-display" id="translationDisplay" style="display: none;">
+                        <span class="translation-text" id="currentTranslation">Привет</span>
+                    </div>
+
+                    <!-- Кнопки действий -->
+                    <div class="word-actions">
+                        <button class="action-btn sound-btn" onclick="playWordSound()">
+                            🔊 Слушать
                         </button>
-                        <button class="learn-btn" onclick="markWordAsLearned()">
-                            ✅ Я выучил это слово
+                        <button class="action-btn show-btn" onclick="showTranslation()">
+                            👁️ Показать перевод
+                        </button>
+                        <button class="action-btn next-btn" id="nextWordBtn" onclick="nextWord()" style="display: none;">
+                            ➡️ Следующее слово
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Варианты для теста -->
+                <div class="quiz-options" id="quizOptions" style="display: none;">
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- Опции будут добавляться через JS -->
+                    </div>
+                </div>
+
+                <!-- Кнопка начать тест -->
+                <button class="start-test-btn" id="startTestBtn" onclick="startTest()" style="display: none;">
+                    🎯 Начать тест
+                </button>
+            </div>
+
+            <!-- Результаты уровня -->
+            <div class="level-result" id="levelResult" style="display: none;">
+                <div class="result-card">
+                    <h2 id="resultTitle">🎉 Уровень пройден!</h2>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <span class="result-value" id="correctAnswers">3</span>
+                            <span class="result-label">правильных</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-value" id="earnedCoins">30</span>
+                            <span class="result-label">монет</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-value" id="earnedXP">50</span>
+                            <span class="result-label">опыта</span>
+                        </div>
+                    </div>
+                    <div class="result-buttons">
+                        <button class="result-btn next-level" onclick="nextLevel()">
+                            ➡️ Следующий уровень
+                        </button>
+                        <button class="result-btn repeat-level" onclick="repeatLevel()">
+                            🔄 Повторить уровень
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div id="translateTab" class="tab-content">
-                <div class="exercise-container">
-                    <h3>Переведи слово:</h3>
-                    <div class="question-card">
-                        <p class="question-word" id="translateWord">hello</p>
-                        <div class="options-grid" id="translateOptions">
-                            <!-- Опции будут добавляться через JS -->
-                        </div>
-                        <div class="feedback" id="translateFeedback"></div>
+            <!-- Магазин (бонусы) -->
+            <div class="shop-section" id="shopSection" style="display: none;">
+                <h3>🛒 Магазин бонусов</h3>
+                <div class="shop-grid">
+                    <div class="shop-item" onclick="buyBonus('hint')">
+                        <span class="bonus-icon">💡</span>
+                        <span class="bonus-name">Подсказка</span>
+                        <span class="bonus-price">10 🪙</span>
+                    </div>
+                    <div class="shop-item" onclick="buyBonus('double')">
+                        <span class="bonus-icon">2️⃣</span>
+                        <span class="bonus-name">Двойные монеты</span>
+                        <span class="bonus-price">30 🪙</span>
+                    </div>
+                    <div class="shop-item" onclick="buyBonus('shield')">
+                        <span class="bonus-icon">🛡️</span>
+                        <span class="bonus-name">Защита ошибки</span>
+                        <span class="bonus-price">25 🪙</span>
+                    </div>
+                    <div class="shop-item" onclick="buyBonus('time')">
+                        <span class="bonus-icon">⏱️</span>
+                        <span class="bonus-name">Доп. время</span>
+                        <span class="bonus-price">15 🪙</span>
                     </div>
                 </div>
-            </div>
-
-            <div id="quizTab" class="tab-content">
-                <div class="exercise-container">
-                    <h3>Выбери правильный перевод:</h3>
-                    <div class="question-card">
-                        <p class="question-word" id="quizWord">Привет</p>
-                        <div class="options-grid" id="quizOptions">
-                            <!-- Опции будут добавляться через JS -->
-                        </div>
-                        <div class="feedback" id="quizFeedback"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="matchTab" class="tab-content">
-                <div class="exercise-container">
-                    <h3>Сопоставь слова:</h3>
-                    <div class="match-game" id="matchGame">
-                        <!-- Карточки для сопоставления будут добавляться через JS -->
-                    </div>
-                    <div class="feedback" id="matchFeedback"></div>
-                </div>
-            </div>
-
-            <!-- Ежедневные задания -->
-            <div class="daily-tasks">
-                <h3>🎯 Ежедневные задания</h3>
-                <div class="tasks-list" id="dailyTasks">
-                    <div class="task-item">
-                        <span class="task-name">📚 Выучить 5 слов</span>
-                        <div class="task-progress">
-                            <div class="progress-bar" id="taskWordsProgress" style="width: 0%"></div>
-                        </div>
-                        <span class="task-count" id="taskWordsCount">0/5</span>
-                    </div>
-                    <div class="task-item">
-                        <span class="task-name">💪 Сделать 3 упражнения</span>
-                        <div class="task-progress">
-                            <div class="progress-bar" id="taskExercisesProgress" style="width: 0%"></div>
-                        </div>
-                        <span class="task-count" id="taskExercisesCount">0/3</span>
-                    </div>
-                    <div class="task-item">
-                        <span class="task-name">🎧 Прослушать 2 слова</span>
-                        <div class="task-progress">
-                            <div class="progress-bar" id="taskListeningProgress" style="width: 0%"></div>
-                        </div>
-                        <span class="task-count" id="taskListeningCount">0/2</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Достижения -->
-            <div class="achievements-section">
-                <h3>🏆 Последние достижения</h3>
-                <div class="achievements-grid" id="recentAchievements">
-                    <!-- Достижения будут добавляться через JS -->
-                </div>
-                <button class="view-all-btn" onclick="showAllAchievements()">Посмотреть все</button>
             </div>
         </main>
 
         <!-- Нижняя навигация -->
         <nav class="bottom-nav">
-            <button class="nav-btn active" onclick="showTab('home')">
-                <span class="nav-icon">🏠</span>
-                <span>Главная</span>
+            <button class="nav-btn active" onclick="showSection('game')">
+                <span class="nav-icon">🎮</span>
+                <span>Игра</span>
             </button>
-            <button class="nav-btn" onclick="showTab('learn')">
+            <button class="nav-btn" onclick="showSection('levels')">
                 <span class="nav-icon">📚</span>
-                <span>Учить</span>
+                <span>Уровни</span>
             </button>
-            <button class="nav-btn" onclick="showTab('exercises')">
-                <span class="nav-icon">💪</span>
-                <span>Упражнения</span>
+            <button class="nav-btn" onclick="showSection('shop')">
+                <span class="nav-icon">🛒</span>
+                <span>Магазин</span>
             </button>
-            <button class="nav-btn" onclick="showTab('progress')">
+            <button class="nav-btn" onclick="showSection('stats')">
                 <span class="nav-icon">📊</span>
-                <span>Прогресс</span>
+                <span>Статистика</span>
             </button>
-            <button class="nav-btn" onclick="showTab('profile')">
+            <button class="nav-btn" onclick="showSection('profile')">
                 <span class="nav-icon">👤</span>
                 <span>Профиль</span>
             </button>
         </nav>
     </div>
 
-    <!-- Подключаем JS файлы -->
     <script src="js/words.js"></script>
-    <script src="js/user-data.js"></script>
-    <script src="js/exercises.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>
