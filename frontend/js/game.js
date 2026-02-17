@@ -56,13 +56,29 @@ class GameManager {
         this.loadLevels();
         this.updateUI();
         this.setupEventListeners();
+
+        console.log('Game initialized', {
+            currentLanguage: this.currentLanguage,
+            currentLevel: this.currentLevel,
+            words: this.words
+        });
     }
 
     setupEventListeners() {
-        // Обработчики для кнопок языка
+        // Удаляем старые обработчики
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.removeEventListener('click', this.handleLanguageClick);
-            this.handleLanguageClick = (e) => {
+        });
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.removeEventListener('click', this.handleNavClick);
+        });
+
+        // Обработчики для кнопок языка
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const handler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 document.querySelectorAll('.lang-btn').forEach(b => {
                     b.classList.remove('active');
                 });
@@ -70,19 +86,48 @@ class GameManager {
                 this.currentLanguage = btn.dataset.lang;
                 this.loadLevels();
                 tg.HapticFeedback.impactOccurred('soft');
+                console.log('Language changed to:', this.currentLanguage);
             };
-            btn.addEventListener('click', this.handleLanguageClick);
+            btn.addEventListener('click', handler);
+            btn._handler = handler; // Сохраняем для возможного удаления
         });
 
         // Обработчики для навигации
         document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.removeEventListener('click', this.handleNavClick);
-            this.handleNavClick = (e) => {
+            const handler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
                 const section = btn.textContent.trim().toLowerCase();
                 this.showSection(section);
             };
-            btn.addEventListener('click', this.handleNavClick);
+            btn.addEventListener('click', handler);
+            btn._handler = handler;
         });
+
+        // Обработчик для кнопки "Следующий уровень"
+        const nextLevelBtn = document.getElementById('nextLevelBtn');
+        if (nextLevelBtn) {
+            nextLevelBtn.removeEventListener('click', this.nextLevelHandler);
+            this.nextLevelHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.nextLevel();
+            };
+            nextLevelBtn.addEventListener('click', this.nextLevelHandler);
+        }
+
+        // Обработчик для кнопки "Повторить уровень"
+        const repeatLevelBtn = document.getElementById('repeatLevelBtn');
+        if (repeatLevelBtn) {
+            repeatLevelBtn.removeEventListener('click', this.repeatLevelHandler);
+            this.repeatLevelHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.repeatLevel();
+            };
+            repeatLevelBtn.addEventListener('click', this.repeatLevelHandler);
+        }
     }
 
     initUserData() {
@@ -92,6 +137,16 @@ class GameManager {
             this.xp = parseInt(localStorage.getItem('xp') || '0');
             this.level = parseInt(localStorage.getItem('level') || '1');
             this.streak = parseInt(localStorage.getItem('streak') || '0');
+            this.currentLanguage = localStorage.getItem('currentLanguage') || 'en';
+
+            // Устанавливаем активный язык в UI
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === this.currentLanguage) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
 
             const savedBonuses = localStorage.getItem('bonuses');
             if (savedBonuses) {
@@ -105,7 +160,8 @@ class GameManager {
                 coins: this.coins,
                 xp: this.xp,
                 level: this.level,
-                streak: this.streak
+                streak: this.streak,
+                currentLanguage: this.currentLanguage
             });
         } catch (error) {
             console.error('Error initializing user data:', error);
@@ -172,7 +228,11 @@ class GameManager {
                 `;
 
                 if (isUnlocked) {
-                    levelButton.onclick = () => this.startLevel(i);
+                    levelButton.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.startLevel(i);
+                    };
                 }
 
                 levelsContainer.appendChild(levelButton);
@@ -184,11 +244,15 @@ class GameManager {
 
     startLevel(level) {
         try {
+            console.log('Starting level:', level);
+
             this.currentLevel = level;
             this.currentWordIndex = 0;
             this.correctAnswers = 0;
             this.words = this.getWordsForLevel(level);
             this.testWords = [...this.words];
+
+            console.log('Words for level:', this.words);
 
             // Показываем урок
             const levelsSection = document.querySelector('.levels-section');
@@ -198,8 +262,6 @@ class GameManager {
             if (levelsSection) levelsSection.style.display = 'none';
             if (currentLesson) {
                 currentLesson.style.display = 'block';
-                // Показываем слово дня (первое слово)
-                document.querySelector('.daily-word').style.display = 'none';
             }
             if (levelResult) levelResult.style.display = 'none';
 
@@ -221,7 +283,21 @@ class GameManager {
         try {
             const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
             const startIndex = (level - 1) * 3;
-            return allWords.slice(startIndex, startIndex + 3);
+
+            // Проверяем, что индексы существуют
+            if (startIndex + 2 < allWords.length) {
+                return allWords.slice(startIndex, startIndex + 3);
+            } else {
+                // Если уровень слишком высокий, берем слова с начала
+                const remainingWords = allWords.length - startIndex;
+                if (remainingWords > 0) {
+                    return allWords.slice(startIndex, startIndex + remainingWords);
+                } else {
+                    // Если слов больше нет, циклически возвращаемся к началу
+                    const wrappedIndex = (level - 1) * 3 % allWords.length;
+                    return allWords.slice(wrappedIndex, wrappedIndex + 3);
+                }
+            }
         } catch (error) {
             console.error('Error getting words for level:', error);
             return [];
@@ -232,6 +308,8 @@ class GameManager {
         try {
             if (this.currentWordIndex < this.words.length) {
                 const word = this.words[this.currentWordIndex];
+
+                console.log('Showing word:', word);
 
                 const currentWordEl = document.getElementById('currentWord');
                 const currentTranslationEl = document.getElementById('currentTranslation');
@@ -244,8 +322,22 @@ class GameManager {
                 if (currentWordEl) currentWordEl.textContent = word.word;
                 if (currentTranslationEl) currentTranslationEl.textContent = word.translation;
                 if (translationDisplay) translationDisplay.style.display = 'none';
-                if (nextWordBtn) nextWordBtn.style.display = 'none';
-                if (startTestBtn) startTestBtn.style.display = 'none';
+                if (nextWordBtn) {
+                    nextWordBtn.style.display = 'none';
+                    nextWordBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.nextWord();
+                    };
+                }
+                if (startTestBtn) {
+                    startTestBtn.style.display = 'none';
+                    startTestBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.prepareTest();
+                    };
+                }
                 if (quizOptions) quizOptions.style.display = 'none';
                 if (wordCard) wordCard.style.display = 'block';
 
@@ -272,6 +364,26 @@ class GameManager {
                     wordEmoji.textContent = emojis[word.category] || '📖';
                 }
 
+                // Обновляем обработчики кнопок
+                const soundBtn = document.querySelector('.sound-btn');
+                const showBtn = document.querySelector('.show-btn');
+
+                if (soundBtn) {
+                    soundBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.playWordSound();
+                    };
+                }
+
+                if (showBtn) {
+                    showBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.showTranslation();
+                    };
+                }
+
             } else {
                 // Все слова изучены, показываем кнопку теста
                 const wordCard = document.getElementById('wordCard');
@@ -280,7 +392,11 @@ class GameManager {
                 if (wordCard) wordCard.style.display = 'none';
                 if (startTestBtn) {
                     startTestBtn.style.display = 'block';
-                    startTestBtn.onclick = () => this.prepareTest();
+                    startTestBtn.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.prepareTest();
+                    };
                 }
             }
         } catch (error) {
@@ -296,7 +412,11 @@ class GameManager {
             if (translationDisplay) translationDisplay.style.display = 'block';
             if (nextWordBtn) {
                 nextWordBtn.style.display = 'block';
-                nextWordBtn.onclick = () => this.nextWord();
+                nextWordBtn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.nextWord();
+                };
             }
 
             // Добавляем монетки за просмотр
@@ -310,12 +430,16 @@ class GameManager {
 
     nextWord() {
         try {
+            console.log('Next word, current index:', this.currentWordIndex);
+
             // Отмечаем слово как изученное
             if (this.currentWordIndex < this.words.length) {
                 this.addLearnedWord(this.words[this.currentWordIndex]);
             }
 
             this.currentWordIndex++;
+            console.log('New index:', this.currentWordIndex);
+
             this.showCurrentWord();
             this.updateProgressSteps();
         } catch (error) {
@@ -325,6 +449,8 @@ class GameManager {
 
     prepareTest() {
         try {
+            console.log('Preparing test');
+
             const testContainer = document.getElementById('quizOptions');
             const optionsGrid = document.getElementById('optionsGrid');
 
@@ -406,10 +532,7 @@ class GameManager {
                 // Блокируем все кнопки в этой группе
                 const buttons = button.parentElement.querySelectorAll('.test-option');
                 buttons.forEach(btn => {
-                    if (btn !== button) {
-                        btn.disabled = true;
-                        btn.style.opacity = '0.5';
-                    }
+                    btn.disabled = true;
                 });
 
                 // Проверяем, все ли слова угаданы
@@ -444,6 +567,8 @@ class GameManager {
 
     completeLevel() {
         try {
+            console.log('Completing level', this.currentLevel);
+
             // Начисляем награды
             const reward = this.currentLevel * 10;
             this.addCoins(reward);
@@ -488,9 +613,20 @@ class GameManager {
 
     nextLevel() {
         try {
+            console.log('Going to next level, current:', this.currentLevel);
+
             if (this.currentLevel < 10) {
-                this.startLevel(this.currentLevel + 1);
+                const nextLevel = this.currentLevel + 1;
+                console.log('Starting next level:', nextLevel);
+
+                // Скрываем результаты
+                const levelResult = document.getElementById('levelResult');
+                if (levelResult) levelResult.style.display = 'none';
+
+                // Запускаем следующий уровень
+                this.startLevel(nextLevel);
             } else {
+                // Если достигнут максимум, показываем уровни
                 this.showSection('levels');
             }
         } catch (error) {
@@ -500,6 +636,13 @@ class GameManager {
 
     repeatLevel() {
         try {
+            console.log('Repeating level:', this.currentLevel);
+
+            // Скрываем результаты
+            const levelResult = document.getElementById('levelResult');
+            if (levelResult) levelResult.style.display = 'none';
+
+            // Повторяем текущий уровень
             this.startLevel(this.currentLevel);
         } catch (error) {
             console.error('Error repeating level:', error);
@@ -585,7 +728,7 @@ class GameManager {
                 const xpForCurrentLevel = (this.level - 1) * 100;
                 const xpProgress = this.xp - xpForCurrentLevel;
                 const xpNeededForNext = xpNeeded - xpForCurrentLevel;
-                const percentage = (xpProgress / xpNeededForNext) * 100;
+                const percentage = xpNeededForNext > 0 ? (xpProgress / xpNeededForNext) * 100 : 0;
 
                 xpBar.style.width = percentage + '%';
                 xpText.textContent = `${xpProgress}/${xpNeededForNext} XP`;
@@ -648,15 +791,6 @@ class GameManager {
                 });
                 this.addCoins(100);
             }
-            if (learnedWords.length >= 100 && !achievements.includes('word_master')) {
-                achievements.push('word_master');
-                newAchievements.push({
-                    emoji: '👑',
-                    title: 'Мастер слов',
-                    desc: 'Выучить 100 слов'
-                });
-                this.addCoins(200);
-            }
 
             // Достижения за серию
             if (this.streak >= 7 && !achievements.includes('streak_week')) {
@@ -667,27 +801,6 @@ class GameManager {
                     desc: 'Заниматься 7 дней подряд'
                 });
                 this.addCoins(70);
-            }
-            if (this.streak >= 30 && !achievements.includes('streak_month')) {
-                achievements.push('streak_month');
-                newAchievements.push({
-                    emoji: '⚡',
-                    title: 'Месяц',
-                    desc: 'Заниматься 30 дней подряд'
-                });
-                this.addCoins(150);
-            }
-
-            // Достижения за уровни
-            const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
-            if (completedLevels.length >= 10 && !achievements.includes('level_beginner')) {
-                achievements.push('level_beginner');
-                newAchievements.push({
-                    emoji: '🎯',
-                    title: 'Начинающий',
-                    desc: 'Пройдено 10 уровней'
-                });
-                this.addCoins(100);
             }
 
             if (newAchievements.length > 0) {
@@ -704,6 +817,7 @@ class GameManager {
             const container = document.getElementById('recentAchievements');
             if (!container) return;
 
+            container.innerHTML = '';
             achievements.forEach(ach => {
                 const div = document.createElement('div');
                 div.className = 'achievement-badge';
@@ -717,7 +831,7 @@ class GameManager {
                 container.appendChild(div);
             });
 
-            this.showNotification(`🏆 Новые достижения: +${achievements.length}`);
+            this.showNotification(`🏆 Новые достижения!`);
         } catch (error) {
             console.error('Error showing achievements:', error);
         }
@@ -780,14 +894,11 @@ class GameManager {
                         break;
                     case 'double':
                         this.bonuses.doubleCoins = true;
-                        this.showNotification('2️⃣ Двойные монеты активированы на 24 часа!');
+                        this.showNotification('2️⃣ Двойные монеты активированы!');
                         break;
                     case 'shield':
                         this.bonuses.shield = true;
-                        this.showNotification('🛡️ Защита активирована на 1 ошибку!');
-                        break;
-                    case 'time':
-                        this.showNotification('⏱️ Дополнительное время не реализовано в этой версии');
+                        this.showNotification('🛡️ Защита активирована!');
                         break;
                 }
 
@@ -803,6 +914,8 @@ class GameManager {
 
     showSection(section) {
         try {
+            console.log('Showing section:', section);
+
             // Обновляем навигацию
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -816,21 +929,19 @@ class GameManager {
             const currentLesson = document.getElementById('currentLesson');
             const levelResult = document.getElementById('levelResult');
             const shopSection = document.getElementById('shopSection');
-            const dailyWord = document.querySelector('.daily-word');
 
             if (levelsSection) levelsSection.style.display = 'none';
             if (currentLesson) currentLesson.style.display = 'none';
             if (levelResult) levelResult.style.display = 'none';
             if (shopSection) shopSection.style.display = 'none';
-            if (dailyWord) dailyWord.style.display = 'none';
 
             // Показываем нужную секцию
             switch(section) {
                 case 'игра':
                 case 'game':
-                    if (levelsSection) levelsSection.style.display = 'block';
-                    if (currentLesson && this.currentLevel) {
-                        currentLesson.style.display = 'block';
+                    if (levelsSection) {
+                        levelsSection.style.display = 'block';
+                        this.loadLevels();
                     }
                     break;
 
@@ -914,10 +1025,6 @@ class GameManager {
             `;
 
             document.body.appendChild(modal);
-
-            setTimeout(() => {
-                modal.remove();
-            }, 10000);
         } catch (error) {
             console.error('Error showing stats:', error);
         }
@@ -950,10 +1057,6 @@ class GameManager {
             `;
 
             document.body.appendChild(modal);
-
-            setTimeout(() => {
-                modal.remove();
-            }, 10000);
         } catch (error) {
             console.error('Error showing profile:', error);
         }
