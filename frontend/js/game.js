@@ -9,7 +9,12 @@ class GameManager {
     constructor() {
         this.currentLanguage = 'en';
         this.currentLevel = 1;
-        this.wordsInLevel = 3;
+        this.currentDifficulty = 'easy'; // easy, medium, hard
+        this.wordsInLevel = {
+            easy: 6,
+            medium: 8,
+            hard: 10
+        };
         this.currentWordIndex = 0;
         this.words = [];
         this.testWords = [];
@@ -21,10 +26,22 @@ class GameManager {
         this.bonuses = {
             hints: 0,
             doubleCoins: false,
-            shield: false
+            shield: false,
+            time: 0
         };
 
-        // Привязываем методы к экземпляру
+        // Статистика
+        this.stats = {
+            totalWordsLearned: 0,
+            totalExercisesDone: 0,
+            totalCorrectAnswers: 0,
+            totalWrongAnswers: 0,
+            languagesProgress: {},
+            levelsCompleted: 0,
+            achievementsUnlocked: 0
+        };
+
+        // Привязываем методы
         this.initUserData = this.initUserData.bind(this);
         this.checkStreak = this.checkStreak.bind(this);
         this.loadLevels = this.loadLevels.bind(this);
@@ -50,9 +67,13 @@ class GameManager {
         this.showSection = this.showSection.bind(this);
         this.showStats = this.showStats.bind(this);
         this.showProfile = this.showProfile.bind(this);
+        this.changeDifficulty = this.changeDifficulty.bind(this);
+        this.loadUserStats = this.loadUserStats.bind(this);
+        this.saveUserStats = this.saveUserStats.bind(this);
 
         // Инициализация
         this.initUserData();
+        this.loadUserStats();
         this.loadLevels();
         this.updateUI();
         this.setupEventListeners();
@@ -60,7 +81,7 @@ class GameManager {
         console.log('Game initialized', {
             currentLanguage: this.currentLanguage,
             currentLevel: this.currentLevel,
-            words: this.words
+            difficulty: this.currentDifficulty
         });
     }
 
@@ -68,9 +89,6 @@ class GameManager {
         // Удаляем старые обработчики
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.removeEventListener('click', this.handleLanguageClick);
-        });
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.removeEventListener('click', this.handleNavClick);
         });
 
         // Обработчики для кнопок языка
@@ -84,50 +102,42 @@ class GameManager {
                 });
                 btn.classList.add('active');
                 this.currentLanguage = btn.dataset.lang;
+                localStorage.setItem('currentLanguage', this.currentLanguage);
                 this.loadLevels();
                 tg.HapticFeedback.impactOccurred('soft');
                 console.log('Language changed to:', this.currentLanguage);
             };
             btn.addEventListener('click', handler);
-            btn._handler = handler; // Сохраняем для возможного удаления
+            btn._handler = handler;
         });
 
-        // Обработчики для навигации
-        document.querySelectorAll('.nav-btn').forEach(btn => {
+        // Обработчики для сложности
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.removeEventListener('click', this.handleDifficultyClick);
             const handler = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-
-                const section = btn.textContent.trim().toLowerCase();
-                this.showSection(section);
+                this.changeDifficulty(btn.dataset.difficulty);
             };
             btn.addEventListener('click', handler);
             btn._handler = handler;
         });
+    }
 
-        // Обработчик для кнопки "Следующий уровень"
-        const nextLevelBtn = document.getElementById('nextLevelBtn');
-        if (nextLevelBtn) {
-            nextLevelBtn.removeEventListener('click', this.nextLevelHandler);
-            this.nextLevelHandler = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.nextLevel();
-            };
-            nextLevelBtn.addEventListener('click', this.nextLevelHandler);
-        }
+    changeDifficulty(difficulty) {
+        this.currentDifficulty = difficulty;
 
-        // Обработчик для кнопки "Повторить уровень"
-        const repeatLevelBtn = document.getElementById('repeatLevelBtn');
-        if (repeatLevelBtn) {
-            repeatLevelBtn.removeEventListener('click', this.repeatLevelHandler);
-            this.repeatLevelHandler = (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.repeatLevel();
-            };
-            repeatLevelBtn.addEventListener('click', this.repeatLevelHandler);
-        }
+        // Обновляем UI
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.difficulty === difficulty) {
+                btn.classList.add('active');
+            }
+        });
+
+        localStorage.setItem('currentDifficulty', difficulty);
+        this.loadLevels();
+        console.log('Difficulty changed to:', difficulty);
     }
 
     initUserData() {
@@ -138,6 +148,7 @@ class GameManager {
             this.level = parseInt(localStorage.getItem('level') || '1');
             this.streak = parseInt(localStorage.getItem('streak') || '0');
             this.currentLanguage = localStorage.getItem('currentLanguage') || 'en';
+            this.currentDifficulty = localStorage.getItem('currentDifficulty') || 'easy';
 
             // Устанавливаем активный язык в UI
             document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -145,6 +156,14 @@ class GameManager {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
+                }
+            });
+
+            // Устанавливаем активную сложность
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.difficulty === this.currentDifficulty) {
+                    btn.classList.add('active');
                 }
             });
 
@@ -161,10 +180,44 @@ class GameManager {
                 xp: this.xp,
                 level: this.level,
                 streak: this.streak,
-                currentLanguage: this.currentLanguage
+                currentLanguage: this.currentLanguage,
+                difficulty: this.currentDifficulty
             });
         } catch (error) {
             console.error('Error initializing user data:', error);
+        }
+    }
+
+    loadUserStats() {
+        try {
+            const savedStats = localStorage.getItem('userStats');
+            if (savedStats) {
+                this.stats = JSON.parse(savedStats);
+            } else {
+                // Инициализируем статистику
+                this.stats = {
+                    totalWordsLearned: 0,
+                    totalExercisesDone: 0,
+                    totalCorrectAnswers: 0,
+                    totalWrongAnswers: 0,
+                    languagesProgress: {},
+                    levelsCompleted: 0,
+                    achievementsUnlocked: 0,
+                    totalCoinsEarned: 0,
+                    totalXPEarned: 0,
+                    bestStreak: 0
+                };
+            }
+        } catch (error) {
+            console.error('Error loading user stats:', error);
+        }
+    }
+
+    saveUserStats() {
+        try {
+            localStorage.setItem('userStats', JSON.stringify(this.stats));
+        } catch (error) {
+            console.error('Error saving user stats:', error);
         }
     }
 
@@ -187,8 +240,14 @@ class GameManager {
                 this.streak = 1;
             }
 
+            // Обновляем лучшую серию
+            if (this.streak > this.stats.bestStreak) {
+                this.stats.bestStreak = this.streak;
+            }
+
             localStorage.setItem('streak', this.streak.toString());
             localStorage.setItem('lastActive', today);
+            this.saveUserStats();
         } catch (error) {
             console.error('Error checking streak:', error);
         }
@@ -202,14 +261,16 @@ class GameManager {
             levelsContainer.innerHTML = '';
 
             const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
+            const maxLevels = this.currentDifficulty === 'easy' ? 10 :
+                             this.currentDifficulty === 'medium' ? 15 : 20;
 
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= maxLevels; i++) {
                 const levelButton = document.createElement('button');
                 levelButton.className = 'level-btn';
                 levelButton.setAttribute('data-level', i);
 
-                const isCompleted = completedLevels.includes(`${this.currentLanguage}_${i}`);
-                const isUnlocked = i === 1 || completedLevels.includes(`${this.currentLanguage}_${i-1}`);
+                const isCompleted = completedLevels.includes(`${this.currentLanguage}_${this.currentDifficulty}_${i}`);
+                const isUnlocked = i === 1 || completedLevels.includes(`${this.currentLanguage}_${this.currentDifficulty}_${i-1}`);
 
                 if (isCompleted) {
                     levelButton.classList.add('completed');
@@ -221,10 +282,13 @@ class GameManager {
                     levelButton.classList.add('active');
                 }
 
+                const reward = this.currentDifficulty === 'easy' ? i * 10 :
+                              this.currentDifficulty === 'medium' ? i * 15 : i * 20;
+
                 levelButton.innerHTML = `
                     <span class="level-number">${i}</span>
                     <span class="level-status">${isCompleted ? '✅' : isUnlocked ? '🔓' : '🔒'}</span>
-                    <span class="level-reward">${i * 10} 🪙</span>
+                    <span class="level-reward">${reward} 🪙</span>
                 `;
 
                 if (isUnlocked) {
@@ -244,7 +308,7 @@ class GameManager {
 
     startLevel(level) {
         try {
-            console.log('Starting level:', level);
+            console.log('Starting level:', level, 'difficulty:', this.currentDifficulty);
 
             this.currentLevel = level;
             this.currentWordIndex = 0;
@@ -270,6 +334,14 @@ class GameManager {
                 lessonTitle.textContent = `Уровень ${level}`;
             }
 
+            // Обновляем бейдж сложности
+            const difficultyBadge = document.querySelector('.difficulty-badge');
+            if (difficultyBadge) {
+                difficultyBadge.className = `difficulty-badge ${this.currentDifficulty}`;
+                difficultyBadge.textContent = this.currentDifficulty === 'easy' ? 'ЛЕГКИЙ' :
+                                             this.currentDifficulty === 'medium' ? 'СРЕДНИЙ' : 'СЛОЖНЫЙ';
+            }
+
             this.showCurrentWord();
             this.updateProgressSteps();
 
@@ -282,22 +354,16 @@ class GameManager {
     getWordsForLevel(level) {
         try {
             const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
-            const startIndex = (level - 1) * 3;
+            const wordsPerLevel = this.wordsInLevel[this.currentDifficulty];
+            const startIndex = ((level - 1) * wordsPerLevel) % allWords.length;
 
-            // Проверяем, что индексы существуют
-            if (startIndex + 2 < allWords.length) {
-                return allWords.slice(startIndex, startIndex + 3);
-            } else {
-                // Если уровень слишком высокий, берем слова с начала
-                const remainingWords = allWords.length - startIndex;
-                if (remainingWords > 0) {
-                    return allWords.slice(startIndex, startIndex + remainingWords);
-                } else {
-                    // Если слов больше нет, циклически возвращаемся к началу
-                    const wrappedIndex = (level - 1) * 3 % allWords.length;
-                    return allWords.slice(wrappedIndex, wrappedIndex + 3);
-                }
+            let words = [];
+            for (let i = 0; i < wordsPerLevel; i++) {
+                const wordIndex = (startIndex + i) % allWords.length;
+                words.push(allWords[wordIndex]);
             }
+
+            return words;
         } catch (error) {
             console.error('Error getting words for level:', error);
             return [];
@@ -494,7 +560,10 @@ class GameManager {
             const allWords = WORDS_DATABASE[this.currentLanguage] || WORDS_DATABASE.en;
             let options = [word.translation];
 
-            while (options.length < 3) {
+            const optionsCount = this.currentDifficulty === 'easy' ? 3 :
+                                this.currentDifficulty === 'medium' ? 4 : 5;
+
+            while (options.length < optionsCount) {
                 const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
                 if (!options.includes(randomWord.translation) && randomWord.translation !== word.translation) {
                     options.push(randomWord.translation);
@@ -519,8 +588,15 @@ class GameManager {
 
             if (isCorrect) {
                 this.correctAnswers++;
-                this.addCoins(5);
-                this.addXP(10);
+                this.stats.totalCorrectAnswers++;
+
+                const coinReward = this.currentDifficulty === 'easy' ? 5 :
+                                  this.currentDifficulty === 'medium' ? 8 : 12;
+                const xpReward = this.currentDifficulty === 'easy' ? 10 :
+                                this.currentDifficulty === 'medium' ? 15 : 20;
+
+                this.addCoins(coinReward);
+                this.addXP(xpReward);
 
                 // Визуальный эффект
                 tg.HapticFeedback.notificationOccurred('success');
@@ -544,6 +620,7 @@ class GameManager {
             } else {
                 tg.HapticFeedback.notificationOccurred('error');
                 button.classList.add('wrong');
+                this.stats.totalWrongAnswers++;
 
                 // Показываем правильный ответ
                 const buttons = button.parentElement.querySelectorAll('.test-option');
@@ -558,8 +635,12 @@ class GameManager {
                     this.bonuses.shield = false;
                     localStorage.setItem('bonuses', JSON.stringify(this.bonuses));
                     this.showNotification('🛡️ Защита сработала! Ошибка не засчитана');
+                    this.stats.totalWrongAnswers--; // Откатываем статистику ошибок
                 }
             }
+
+            this.stats.totalExercisesDone++;
+            this.saveUserStats();
         } catch (error) {
             console.error('Error checking test answer:', error);
         }
@@ -570,18 +651,39 @@ class GameManager {
             console.log('Completing level', this.currentLevel);
 
             // Начисляем награды
-            const reward = this.currentLevel * 10;
+            const baseReward = this.currentLevel * 10;
+            const difficultyMultiplier = this.currentDifficulty === 'easy' ? 1 :
+                                        this.currentDifficulty === 'medium' ? 1.5 : 2;
+            const reward = Math.floor(baseReward * difficultyMultiplier);
+
             this.addCoins(reward);
-            this.addXP(50);
+            this.addXP(50 * difficultyMultiplier);
+
+            this.stats.totalCoinsEarned += reward;
+            this.stats.totalXPEarned += 50 * difficultyMultiplier;
+            this.stats.levelsCompleted++;
 
             // Отмечаем уровень как пройденный
             const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
-            const levelKey = `${this.currentLanguage}_${this.currentLevel}`;
+            const levelKey = `${this.currentLanguage}_${this.currentDifficulty}_${this.currentLevel}`;
 
             if (!completedLevels.includes(levelKey)) {
                 completedLevels.push(levelKey);
                 localStorage.setItem('completedLevels', JSON.stringify(completedLevels));
             }
+
+            // Обновляем прогресс по языку
+            if (!this.stats.languagesProgress[this.currentLanguage]) {
+                this.stats.languagesProgress[this.currentLanguage] = {
+                    wordsLearned: 0,
+                    levelsCompleted: 0,
+                    exercisesDone: 0
+                };
+            }
+            this.stats.languagesProgress[this.currentLanguage].levelsCompleted++;
+            this.stats.languagesProgress[this.currentLanguage].exercisesDone += this.words.length;
+
+            this.saveUserStats();
 
             // Показываем результаты
             const currentLesson = document.getElementById('currentLesson');
@@ -597,7 +699,7 @@ class GameManager {
 
                 if (correctAnswersEl) correctAnswersEl.textContent = this.correctAnswers;
                 if (earnedCoinsEl) earnedCoinsEl.textContent = reward;
-                if (earnedXpEl) earnedXpEl.textContent = 50;
+                if (earnedXpEl) earnedXpEl.textContent = Math.floor(50 * difficultyMultiplier);
             }
 
             // Проверяем достижения
@@ -615,7 +717,10 @@ class GameManager {
         try {
             console.log('Going to next level, current:', this.currentLevel);
 
-            if (this.currentLevel < 10) {
+            const maxLevels = this.currentDifficulty === 'easy' ? 10 :
+                             this.currentDifficulty === 'medium' ? 15 : 20;
+
+            if (this.currentLevel < maxLevels) {
                 const nextLevel = this.currentLevel + 1;
                 console.log('Starting next level:', nextLevel);
 
@@ -661,10 +766,24 @@ class GameManager {
                     translation: word.translation,
                     category: word.category,
                     learnedAt: new Date().toISOString(),
-                    level: this.currentLevel
+                    level: this.currentLevel,
+                    difficulty: this.currentDifficulty
                 });
 
                 localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+                this.stats.totalWordsLearned++;
+
+                // Обновляем прогресс по языку
+                if (!this.stats.languagesProgress[this.currentLanguage]) {
+                    this.stats.languagesProgress[this.currentLanguage] = {
+                        wordsLearned: 0,
+                        levelsCompleted: 0,
+                        exercisesDone: 0
+                    };
+                }
+                this.stats.languagesProgress[this.currentLanguage].wordsLearned++;
+
+                this.saveUserStats();
                 this.updateUI();
             }
         } catch (error) {
@@ -745,7 +864,9 @@ class GameManager {
 
             stepsContainer.innerHTML = '';
 
-            for (let i = 0; i < this.wordsInLevel; i++) {
+            const totalWords = this.wordsInLevel[this.currentDifficulty];
+
+            for (let i = 0; i < totalWords; i++) {
                 const step = document.createElement('div');
                 step.className = 'progress-step';
 
@@ -781,6 +902,7 @@ class GameManager {
                     desc: 'Выучить 10 слов'
                 });
                 this.addCoins(50);
+                this.stats.achievementsUnlocked++;
             }
             if (learnedWords.length >= 50 && !achievements.includes('word_enthusiast')) {
                 achievements.push('word_enthusiast');
@@ -790,6 +912,17 @@ class GameManager {
                     desc: 'Выучить 50 слов'
                 });
                 this.addCoins(100);
+                this.stats.achievementsUnlocked++;
+            }
+            if (learnedWords.length >= 100 && !achievements.includes('word_master')) {
+                achievements.push('word_master');
+                newAchievements.push({
+                    emoji: '👑',
+                    title: 'Мастер слов',
+                    desc: 'Выучить 100 слов'
+                });
+                this.addCoins(200);
+                this.stats.achievementsUnlocked++;
             }
 
             // Достижения за серию
@@ -801,12 +934,38 @@ class GameManager {
                     desc: 'Заниматься 7 дней подряд'
                 });
                 this.addCoins(70);
+                this.stats.achievementsUnlocked++;
+            }
+            if (this.streak >= 30 && !achievements.includes('streak_month')) {
+                achievements.push('streak_month');
+                newAchievements.push({
+                    emoji: '⚡',
+                    title: 'Месяц',
+                    desc: 'Заниматься 30 дней подряд'
+                });
+                this.addCoins(150);
+                this.stats.achievementsUnlocked++;
+            }
+
+            // Достижения за уровни
+            const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
+            if (completedLevels.length >= 10 && !achievements.includes('level_beginner')) {
+                achievements.push('level_beginner');
+                newAchievements.push({
+                    emoji: '🎯',
+                    title: 'Начинающий',
+                    desc: 'Пройдено 10 уровней'
+                });
+                this.addCoins(100);
+                this.stats.achievementsUnlocked++;
             }
 
             if (newAchievements.length > 0) {
                 localStorage.setItem('achievements', JSON.stringify(achievements));
                 this.showAchievements(newAchievements);
             }
+
+            this.saveUserStats();
         } catch (error) {
             console.error('Error checking achievements:', error);
         }
@@ -817,7 +976,6 @@ class GameManager {
             const container = document.getElementById('recentAchievements');
             if (!container) return;
 
-            container.innerHTML = '';
             achievements.forEach(ach => {
                 const div = document.createElement('div');
                 div.className = 'achievement-badge';
@@ -890,15 +1048,21 @@ class GameManager {
                 switch(bonusType) {
                     case 'hint':
                         this.bonuses.hints++;
-                        this.showNotification('💡 Подсказка куплена!');
+                        this.showNotification('💡 Подсказка куплена! Используйте её в тесте.');
                         break;
                     case 'double':
                         this.bonuses.doubleCoins = true;
-                        this.showNotification('2️⃣ Двойные монеты активированы!');
+                        // Действует 24 часа (можно добавить таймер)
+                        localStorage.setItem('doubleCoinsUntil', Date.now() + 24*60*60*1000);
+                        this.showNotification('2️⃣ Двойные монеты активированы на 24 часа!');
                         break;
                     case 'shield':
                         this.bonuses.shield = true;
-                        this.showNotification('🛡️ Защита активирована!');
+                        this.showNotification('🛡️ Защита активирована! Одна ошибка не засчитывается.');
+                        break;
+                    case 'time':
+                        this.bonuses.time++;
+                        this.showNotification('⏱️ Дополнительное время куплено!');
                         break;
                 }
 
@@ -981,14 +1145,10 @@ class GameManager {
             const achievements = JSON.parse(localStorage.getItem('achievements') || '[]');
             const completedLevels = JSON.parse(localStorage.getItem('completedLevels') || '[]');
 
-            // Считаем статистику по языкам
-            const languageStats = {};
-            learnedWords.forEach(word => {
-                if (!languageStats[word.lang]) {
-                    languageStats[word.lang] = 0;
-                }
-                languageStats[word.lang]++;
-            });
+            // Считаем точность
+            const totalAnswers = this.stats.totalCorrectAnswers + this.stats.totalWrongAnswers;
+            const accuracy = totalAnswers > 0 ?
+                Math.round((this.stats.totalCorrectAnswers / totalAnswers) * 100) : 0;
 
             const langNames = {
                 'en': '🇬🇧 Английский',
@@ -1000,8 +1160,14 @@ class GameManager {
             };
 
             let languageStatsText = '';
-            for (let lang in languageStats) {
-                languageStatsText += `<p>${langNames[lang] || lang}: ${languageStats[lang]} слов</p>`;
+            for (let lang in this.stats.languagesProgress) {
+                const progress = this.stats.languagesProgress[lang];
+                languageStatsText += `
+                    <p>
+                        <span>${langNames[lang] || lang}</span>
+                        <strong>${progress.wordsLearned} слов | ${progress.levelsCompleted} ур.</strong>
+                    </p>
+                `;
             }
 
             const modal = document.createElement('div');
@@ -1010,16 +1176,25 @@ class GameManager {
                 <div class="stats-modal">
                     <h3>📊 Статистика</h3>
                     <div class="stats-list">
-                        <p>🔥 Серия: ${this.streak} дней</p>
-                        <p>📚 Всего слов: ${learnedWords.length}</p>
-                        <p>⭐ Уровень: ${this.level}</p>
-                        <p>✨ Опыт: ${this.xp}</p>
-                        <p>🪙 Монеты: ${this.coins}</p>
-                        <p>🏆 Достижения: ${achievements.length}</p>
-                        <p>🎮 Пройдено уровней: ${completedLevels.length}</p>
-                        <h4>🌍 По языкам:</h4>
+                        <p><span>🔥 Текущая серия:</span> <strong>${this.streak} дней</strong></p>
+                        <p><span>🏆 Лучшая серия:</span> <strong>${this.stats.bestStreak || 0} дней</strong></p>
+                        <p><span>📚 Всего слов:</span> <strong>${learnedWords.length}</strong></p>
+                        <p><span>🎮 Пройдено уровней:</span> <strong>${completedLevels.length}</strong></p>
+                        <p><span>💪 Упражнений:</span> <strong>${this.stats.totalExercisesDone || 0}</strong></p>
+                        <p><span>🎯 Точность:</span> <strong>${accuracy}%</strong></p>
+                        <p><span>✅ Правильно:</span> <strong>${this.stats.totalCorrectAnswers || 0}</strong></p>
+                        <p><span>❌ Ошибок:</span> <strong>${this.stats.totalWrongAnswers || 0}</strong></p>
+                        <p><span>⭐ Уровень:</span> <strong>${this.level}</strong></p>
+                        <p><span>✨ Опыт:</span> <strong>${this.xp}</strong></p>
+                        <p><span>🪙 Монеты всего:</span> <strong>${this.stats.totalCoinsEarned || 0}</strong></p>
+                        <p><span>🏆 Достижений:</span> <strong>${achievements.length}</strong></p>
+                    </div>
+
+                    <h4 style="margin: 20px 0 10px;">🌍 Прогресс по языкам:</h4>
+                    <div class="stats-list">
                         ${languageStatsText || '<p>Нет данных</p>'}
                     </div>
+
                     <button class="close-btn" onclick="this.closest('.modal').remove()">Закрыть</button>
                 </div>
             `;
@@ -1034,24 +1209,44 @@ class GameManager {
         try {
             const user = tg.initDataUnsafe?.user;
 
+            // Проверяем активные бонусы
+            const doubleCoinsUntil = localStorage.getItem('doubleCoinsUntil');
+            const doubleCoinsActive = doubleCoinsUntil && parseInt(doubleCoinsUntil) > Date.now();
+            if (!doubleCoinsActive && this.bonuses.doubleCoins) {
+                this.bonuses.doubleCoins = false;
+                localStorage.setItem('bonuses', JSON.stringify(this.bonuses));
+            }
+
             const modal = document.createElement('div');
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="profile-modal">
                     <h3>👤 Профиль</h3>
                     <div class="profile-info">
-                        <p><strong>Имя:</strong> ${user?.first_name || 'Гость'}</p>
-                        <p><strong>Фамилия:</strong> ${user?.last_name || '—'}</p>
-                        <p><strong>Username:</strong> @${user?.username || 'не указан'}</p>
-                        <p><strong>ID:</strong> ${user?.id || 'local'}</p>
-                        <p><strong>Язык интерфейса:</strong> ${user?.language_code || 'ru'}</p>
+                        <p><strong>👤 Имя:</strong> ${user?.first_name || 'Гость'}</p>
+                        <p><strong>📝 Фамилия:</strong> ${user?.last_name || '—'}</p>
+                        <p><strong>🔹 Username:</strong> @${user?.username || 'не указан'}</p>
+                        <p><strong>🆔 ID:</strong> ${user?.id || 'local'}</p>
+                        <p><strong>🌐 Язык:</strong> ${user?.language_code || 'ru'}</p>
+                        <p><strong>📅 Регистрация:</strong> ${new Date().toLocaleDateString()}</p>
                     </div>
+
                     <div class="bonuses-info">
-                        <h4>🎁 Бонусы:</h4>
-                        <p>💡 Подсказки: ${this.bonuses.hints}</p>
-                        <p>2️⃣ Двойные монеты: ${this.bonuses.doubleCoins ? '✅ Активен' : '❌ Не активен'}</p>
-                        <p>🛡️ Защита: ${this.bonuses.shield ? '✅ Активна' : '❌ Не активна'}</p>
+                        <h4>🎁 Активные бонусы:</h4>
+                        <p>💡 Подсказки: <strong>${this.bonuses.hints}</strong></p>
+                        <p>2️⃣ Двойные монеты: <strong>${this.bonuses.doubleCoins ? '✅ Активен' : '❌ Не активен'}</strong></p>
+                        <p>🛡️ Защита: <strong>${this.bonuses.shield ? '✅ Активна' : '❌ Не активна'}</strong></p>
+                        <p>⏱️ Доп. время: <strong>${this.bonuses.time || 0}</strong></p>
                     </div>
+
+                    <div class="stats-list" style="margin: 20px 0;">
+                        <h4>📊 Краткая статистика:</h4>
+                        <p><span>📚 Всего слов:</span> <strong>${JSON.parse(localStorage.getItem('learnedWords') || '[]').length}</strong></p>
+                        <p><span>🔥 Серия:</span> <strong>${this.streak} дней</strong></p>
+                        <p><span>⭐ Уровень:</span> <strong>${this.level}</strong></p>
+                        <p><span>🪙 Монеты:</span> <strong>${this.coins}</strong></p>
+                    </div>
+
                     <button class="close-btn" onclick="this.closest('.modal').remove()">Закрыть</button>
                 </div>
             `;

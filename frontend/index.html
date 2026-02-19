@@ -80,6 +80,19 @@
                 </div>
             </div>
 
+            <!-- Режимы сложности -->
+            <div class="difficulty-selector">
+                <button class="difficulty-btn easy active" data-difficulty="easy" onclick="game.changeDifficulty('easy')">
+                    🌱 Легкий
+                </button>
+                <button class="difficulty-btn medium" data-difficulty="medium" onclick="game.changeDifficulty('medium')">
+                    ⚡ Средний
+                </button>
+                <button class="difficulty-btn hard" data-difficulty="hard" onclick="game.changeDifficulty('hard')">
+                    🔥 Сложный
+                </button>
+            </div>
+
             <!-- Игровые уровни -->
             <div class="levels-section">
                 <h3>🎮 Выберите уровень:</h3>
@@ -91,6 +104,9 @@
             <!-- Текущее задание -->
             <div class="current-lesson" id="currentLesson" style="display: none;">
                 <h3 id="lessonTitle">Уровень 1</h3>
+                <div class="lesson-header">
+                 <span class="difficulty-badge easy">ЛЕГКИЙ</span>
+            </div>
 
                 <!-- Прогресс уровня -->
                 <div class="lesson-progress">
