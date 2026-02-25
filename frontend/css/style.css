@@ -41,7 +41,7 @@ body {
     border-radius: 30px;
     padding: 25px 20px;
     margin-bottom: 20px;
-    color: white;
+    color: #fdcb6e;
     box-shadow: var(--shadow);
 }
 
@@ -573,7 +573,7 @@ body {
 .test-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 20px;
 }
 
 .test-option {

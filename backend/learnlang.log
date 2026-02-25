@@ -438,3 +438,905 @@
 2026-02-19 13:24:12,100 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
 2026-02-19 13:24:21,083 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
 2026-02-19 13:24:21,083 - telegram.ext.Application - INFO - Application.stop() complete
+2026-02-19 13:53:09,174 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getMe "HTTP/1.1 200 OK"
+2026-02-19 13:53:09,366 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/deleteWebhook "HTTP/1.1 200 OK"
+2026-02-19 13:53:09,368 - telegram.ext.Application - INFO - Application started
+2026-02-19 13:53:23,205 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:53:50,947 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:02,855 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:13,062 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:24,192 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:34,918 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:40,816 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:45,213 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-19 13:54:45,215 - __main__ - INFO - Пользователь 1796014793 нажал: daily_tasks
+2026-02-19 13:54:48,269 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-19 13:54:49,208 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:49,828 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-19 13:54:49,830 - __main__ - INFO - Пользователь 1796014793 нажал: back_to_main
+2026-02-19 13:54:51,563 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-19 13:54:56,682 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:54:58,936 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-19 13:54:58,938 - __main__ - INFO - Пользователь 1796014793 нажал: help
+2026-02-19 13:55:00,471 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-19 13:55:07,643 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:55:11,633 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:55:15,991 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-19 13:55:15,992 - __main__ - INFO - Пользователь 1796014793 нажал: back_to_main
+2026-02-19 13:55:19,253 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-19 13:55:21,770 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:55:32,950 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:55:43,142 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:55:53,832 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:04,594 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:14,814 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:26,395 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:37,446 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:48,320 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:56:58,821 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:57:08,984 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:57:20,109 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:57:30,284 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:57:41,580 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:57:51,787 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:02,643 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:13,407 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:24,341 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:34,486 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:45,446 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:58:56,811 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:59:06,965 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:59:17,600 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:59:28,351 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:59:39,121 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 13:59:49,856 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:00,300 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:10,540 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:21,568 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:32,044 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:42,208 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:00:52,853 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:03,805 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:14,879 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:25,652 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:36,255 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:46,491 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:01:57,759 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:02:07,961 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:02:18,511 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:02:29,189 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:02:39,941 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:02:50,090 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:03:00,832 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:03:12,064 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:03:22,439 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:03:33,192 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:03:43,944 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 14:04:00,967 - telegram.ext.Updater - ERROR - Error while getting Updates: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:00,968 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 114, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 215, in connect_tcp
+    gai_res = await getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^
+        target_host, remote_port, family=family, type=socket.SOCK_STREAM
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 649, in getaddrinfo
+    gai_res = await get_async_backend().getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoded_host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_backends\_asyncio.py", line 2732, in getaddrinfo
+    return await get_running_loop().getaddrinfo(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "A:\msys64\ucrt64\lib\python3.13\asyncio\base_events.py", line 939, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "A:\msys64\ucrt64\lib\python3.13\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 262, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 245, in handle_async_request
+    response = await connection.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 92, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 69, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 117, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 112, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 216, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 607, in _network_loop_retry
+    if not await action_cb():
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 335, in polling_action_cb
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 320, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 543, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 381, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 3661, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 469, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 325, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 497, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 168, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 291, in _request_wrapper
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 277, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 240, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:01,980 - telegram.ext.Updater - ERROR - Error while getting Updates: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:01,981 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 114, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 215, in connect_tcp
+    gai_res = await getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^
+        target_host, remote_port, family=family, type=socket.SOCK_STREAM
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 649, in getaddrinfo
+    gai_res = await get_async_backend().getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoded_host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_backends\_asyncio.py", line 2732, in getaddrinfo
+    return await get_running_loop().getaddrinfo(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "A:\msys64\ucrt64\lib\python3.13\asyncio\base_events.py", line 939, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "A:\msys64\ucrt64\lib\python3.13\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 262, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 245, in handle_async_request
+    response = await connection.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 92, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 69, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 117, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 112, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 216, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 607, in _network_loop_retry
+    if not await action_cb():
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 335, in polling_action_cb
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 320, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 543, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 381, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 3661, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 469, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 325, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 497, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 168, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 291, in _request_wrapper
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 277, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 240, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:03,487 - telegram.ext.Updater - ERROR - Error while getting Updates: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:03,488 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 114, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 215, in connect_tcp
+    gai_res = await getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^
+        target_host, remote_port, family=family, type=socket.SOCK_STREAM
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 649, in getaddrinfo
+    gai_res = await get_async_backend().getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoded_host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_backends\_asyncio.py", line 2732, in getaddrinfo
+    return await get_running_loop().getaddrinfo(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "A:\msys64\ucrt64\lib\python3.13\asyncio\base_events.py", line 939, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "A:\msys64\ucrt64\lib\python3.13\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 262, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 245, in handle_async_request
+    response = await connection.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 92, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 69, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 117, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 112, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 216, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 607, in _network_loop_retry
+    if not await action_cb():
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 335, in polling_action_cb
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 320, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 543, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 381, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 3661, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 469, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 325, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 497, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 168, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 291, in _request_wrapper
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 277, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 240, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:05,747 - telegram.ext.Updater - ERROR - Error while getting Updates: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:05,748 - telegram.ext.Application - ERROR - No error handlers are registered, logging exception.
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 10, in map_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 114, in connect_tcp
+    stream: anyio.abc.ByteStream = await anyio.connect_tcp(
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 215, in connect_tcp
+    gai_res = await getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^
+        target_host, remote_port, family=family, type=socket.SOCK_STREAM
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_core\_sockets.py", line 649, in getaddrinfo
+    gai_res = await get_async_backend().getaddrinfo(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        encoded_host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\anyio\_backends\_asyncio.py", line 2732, in getaddrinfo
+    return await get_running_loop().getaddrinfo(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        host, port, family=family, type=type, proto=proto, flags=flags
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "A:\msys64\ucrt64\lib\python3.13\asyncio\base_events.py", line 939, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "A:\msys64\ucrt64\lib\python3.13\socket.py", line 977, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 60, in map_httpcore_exceptions
+    yield
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 353, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 262, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection_pool.py", line 245, in handle_async_request
+    response = await connection.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 92, in handle_async_request
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 69, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_async\connection.py", line 117, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_backends\anyio.py", line 112, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 216, in do_request
+    res = await self._client.request(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1530, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1617, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1645, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1682, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_client.py", line 1719, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 352, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "A:\msys64\ucrt64\lib\python3.13\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\httpx\_transports\default.py", line 77, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 607, in _network_loop_retry
+    if not await action_cb():
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 335, in polling_action_cb
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_updater.py", line 320, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 543, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 381, in decorator
+    result = await func(self, *args, **kwargs)  # skipcq: PYL-E1102
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 3661, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 469, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\ext\_extbot.py", line 325, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\_bot.py", line 497, in _do_post
+    return await request.post(
+           ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 168, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 291, in _request_wrapper
+    raise exc
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_baserequest.py", line 277, in _request_wrapper
+    code, payload = await self.do_request(
+                    ^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\user\PycharmProjects\LearnLang_TMA\venv\lib\python3.13\site-packages\telegram\request\_httpxrequest.py", line 240, in do_request
+    raise NetworkError(f"httpx.{err.__class__.__name__}: {err}") from err
+telegram.error.NetworkError: httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-02-19 14:04:07,193 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
+2026-02-19 14:04:07,194 - telegram.ext.Application - INFO - Application.stop() complete
+2026-02-24 09:08:27,034 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getMe "HTTP/1.1 200 OK"
+2026-02-24 09:08:27,414 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/deleteWebhook "HTTP/1.1 200 OK"
+2026-02-24 09:08:27,422 - telegram.ext.Application - INFO - Application started
+2026-02-24 09:08:38,049 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:08:48,506 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:08:58,578 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:09,306 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:19,378 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:29,756 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:40,122 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:48,044 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:48,700 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-24 09:09:48,702 - __main__ - INFO - Пользователь 1796014793 нажал: achievements
+2026-02-24 09:09:48,992 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-24 09:09:56,758 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:09:57,430 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/answerCallbackQuery "HTTP/1.1 200 OK"
+2026-02-24 09:09:57,431 - __main__ - INFO - Пользователь 1796014793 нажал: back_to_main
+2026-02-24 09:09:58,024 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/editMessageText "HTTP/1.1 200 OK"
+2026-02-24 09:10:06,832 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:10:17,182 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:10:27,402 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:10:37,472 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:10:47,854 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:10:58,201 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:11:08,419 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:11:18,493 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:11:28,991 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:11:39,210 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:11:49,947 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:00,017 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:10,397 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:20,761 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:31,203 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:41,691 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:12:51,762 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:02,136 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:12,507 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:22,713 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:32,783 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:43,161 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:13:53,721 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:03,790 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:14,171 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:24,538 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:34,770 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:45,497 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:14:55,569 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:05,944 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:16,665 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:26,735 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:37,117 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:47,189 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:15:57,914 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:16:07,986 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-24 09:16:08,320 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
+2026-02-24 09:16:08,321 - telegram.ext.Application - INFO - Application.stop() complete
+2026-02-26 00:30:03,809 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getMe "HTTP/1.1 200 OK"
+2026-02-26 00:30:04,280 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/deleteWebhook "HTTP/1.1 200 OK"
+2026-02-26 00:30:04,282 - telegram.ext.Application - INFO - Application started
+2026-02-26 00:30:15,084 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:30:25,194 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:30:35,681 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:30:46,665 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:30:56,793 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:31:07,230 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:31:17,882 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:31:28,323 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:31:39,394 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:31:49,965 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:00,099 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:11,072 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:21,184 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:31,601 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:41,718 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:32:52,667 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:02,805 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:13,247 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:24,200 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:34,374 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:45,161 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:33:55,327 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:34:05,815 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:34:16,298 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:34:26,726 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7966102912:AAE6lVKzQ_OCchVeODIMl3pxYvWBiIx8Z1w/getUpdates "HTTP/1.1 200 OK"
+2026-02-26 00:34:35,275 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
+2026-02-26 00:34:35,275 - telegram.ext.Application - INFO - Application.stop() complete
