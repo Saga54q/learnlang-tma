@@ -92,21 +92,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        # ИСПРАВЛЕНО: вместо "С возвращением" теперь "Приветствую"
+        # ИСПРАВЛЕНО: убраны символы Markdown, которые вызывают ошибку
         welcome_text = (
-            f"👋 **Приветствую, {user.first_name}!**\n\n"
-            f"📊 **Твоя статистика:**\n"
+            f"👋 Приветствую, {user.first_name}!\n\n"
+            f"📊 Твоя статистика:\n"
             f"• 🔥 Серия: {stats.get('streak', 0)} дней\n"
             f"• 📚 Слов выучено: {stats.get('total_words', 0)}\n"
             f"• ⭐ Уровень: {stats.get('level', 1)}\n"
             f"• ✨ Опыт: {stats.get('xp', 0)} XP\n\n"
-            f"🎯 **Продолжай в том же духе!**"
+            f"🎯 Продолжай в том же духе!"
         )
 
         await update.message.reply_text(
             welcome_text,
-            reply_markup=reply_markup,
-            parse_mode=ParseMode.MARKDOWN
+            reply_markup=reply_markup
+            # Убрали parse_mode=ParseMode.MARKDOWN
         )
 
     except Exception as e:
@@ -126,27 +126,41 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.info(f"Пользователь {user_id} нажал: {data}")
 
         if data == 'my_words':
-            await show_my_words(query, user_id)
+            text = "📚 <b>Ваши слова</b>\n\nСкоро здесь появится список выученных слов!"
         elif data == 'achievements':
-            await show_achievements(query, user_id)
+            text = "🏆 <b>Достижения</b>\n\nСкоро здесь появятся ваши достижения!"
         elif data == 'stats':
-            await show_stats(query, user_id)
-        elif data == 'daily_tasks':
-            await show_daily_tasks(query, user_id)
+            text = "📊 <b>Статистика</b>\n\nСкоро здесь появится ваша статистика!"
         elif data == 'help':
-            await show_help(query)
-        elif data.startswith('learn_'):
-            language = data.replace('learn_', '')
-            await start_learning(query, user_id, language)
-        elif data.startswith('practice_'):
-            word_id = data.replace('practice_', '')
-            await practice_word(query, user_id, word_id)
-        elif data == 'back_to_main':
-            await back_to_main(query, user_id)
+            text = (
+                "❓ <b>Помощь</b>\n\n"
+                "📱 <b>Как пользоваться:</b>\n"
+                "1. Нажмите 'ОТКРЫТЬ LEARNLANG'\n"
+                "2. Выберите язык для изучения\n"
+                "3. Проходите уровни и учите слова\n"
+                "4. Получайте награды и бонусы\n\n"
+                "💡 <b>Советы:</b>\n"
+                "• Занимайтесь каждый день\n"
+                "• Покупайте бонусы в магазине\n"
+                "• Открывайте достижения"
+            )
+        elif data == 'daily_tasks':
+            text = "🎯 <b>Ежедневные задания</b>\n\nСкоро здесь появятся ваши задания!"
+        elif data == 'back':
+            text = "👋 <b>Главное меню</b>"
+        else:
+            text = "Неизвестная команда"
+
+        keyboard = [[InlineKeyboardButton("🔙 Назад", callback_data='back')]]
+
+        await query.edit_message_text(
+            text,
+            reply_markup=InlineKeyboardMarkup(keyboard),
+            parse_mode='HTML'  # Используем HTML
+        )
 
     except Exception as e:
         logger.error(f"Ошибка в button_callback: {e}", exc_info=True)
-
 
 async def show_my_words(query, user_id: int):
     """Показать выученные слова"""
